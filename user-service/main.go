@@ -1,40 +1,50 @@
+// user-service/main.go
+
 package main
 
 import (
+	"log"
+	"net/http"
+	"strconv"
+
+	"blog/contracttesting/db"
+
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
+	// Initialize the database connection
+	db.InitDB()
+	defer db.CloseDB()
+
+	// Create a new Gin router
 	r := gin.Default()
 
 	// Define routes
-	r.POST("/api/register", registerHandler)
-	r.POST("/api/login", loginHandler)
-	r.GET("/api/profile/:userID", userProfileHandler)
-	r.PUT("/api/profile/:userID", updateUserProfileHandler)
-	r.PUT("/api/password/:userID", changePasswordHandler)
+	r.GET("/users/:id", getUserByIDHandler)
 
-	// Run server
-	r.Run(":8081")
+	// Run the server
+	if err := r.Run(":8081"); err != nil {
+		log.Fatalf("Failed to run server: %v", err)
+	}
 }
 
-// Define handlers
-func registerHandler(c *gin.Context) {
-	// Implement user registration logic
-}
+func getUserByIDHandler(c *gin.Context) {
+	// Extract user ID from request parameters
+	userIDStr := c.Param("id")
+	userID, err := strconv.Atoi(userIDStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user ID"})
+		return
+	}
 
-func loginHandler(c *gin.Context) {
-	// Implement user login logic
-}
+	// Perform database operation to get user by ID
+	user, err := db.GetUserByID(userID)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch user"})
+		return
+	}
 
-func userProfileHandler(c *gin.Context) {
-	// Implement user profile retrieval logic
-}
-
-func updateUserProfileHandler(c *gin.Context) {
-	// Implement user profile update logic
-}
-
-func changePasswordHandler(c *gin.Context) {
-	// Implement change password logic
+	// Return user data as JSON response
+	c.JSON(http.StatusOK, user)
 }
