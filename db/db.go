@@ -82,4 +82,85 @@ func GetBlogPostsByUserID(userID int) ([]*models.BlogPost, error) {
 	return blogsSlice, nil
 }
 
-// // Define structs, types, and other necessary utilities for database operations
+func GetCommentsByUserID(userID int) ([]*models.Comment, error) {
+	// Execute SQL query to fetch comments by user ID
+	query := "SELECT id, user_id, blog_id, content, created_at FROM comments WHERE user_id = $1"
+	rows, err := db.Query(query, userID)
+	if err != nil {
+		log.Printf("Error executing query: %v\n", err)
+		return nil, err
+	}
+	defer rows.Close()
+	commentsSlice := []*models.Comment{}
+	for rows.Next() {
+		comment := &models.Comment{}
+		err := rows.Scan(&comment.ID, &comment.UserID, &comment.BlogID, &comment.Content, &comment.CreatedAt)
+		if err != nil {
+			log.Printf("Error scanning comment row: %v\n", err)
+			return nil, err
+		}
+		commentsSlice = append(commentsSlice, comment)
+	}
+	return commentsSlice, nil
+}
+
+func CreateBlogPostsTable() {
+	// SQL statement to create the blog_posts table
+	const createTableQuery = `
+    CREATE TABLE IF NOT EXISTS blog_posts (
+        id SERIAL PRIMARY KEY,
+        user_id INTEGER NOT NULL REFERENCES users(id),
+        title VARCHAR(255) NOT NULL,
+        content TEXT NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+    `
+
+	// Execute the SQL statement to create the table
+	_, err := db.Exec(createTableQuery)
+	if err != nil {
+		log.Fatalf("Error creating blog_posts table: %v", err)
+	}
+
+	log.Println("blog_posts table created successfully")
+}
+
+func CreateUsersTable() {
+	// SQL statement to create the users table
+	const createTableQuery = `
+	CREATE TABLE IF NOT EXISTS users (
+		id SERIAL PRIMARY KEY,
+		username VARCHAR(255) NOT NULL,
+		email VARCHAR(255) NOT NULL
+	);
+	`
+
+	// Execute the SQL statement to create the table
+	_, err := db.Exec(createTableQuery)
+	if err != nil {
+		log.Fatalf("Error creating users table: %v", err)
+	}
+
+	log.Println("users table created successfully")
+}
+
+func CreateCommentsTable() {
+	// SQL statement to create the comments table
+	const createTableQuery = `
+	CREATE TABLE IF NOT EXISTS comments (
+		id SERIAL PRIMARY KEY,
+		user_id INTEGER NOT NULL REFERENCES users(id),
+		blog_id INTEGER NOT NULL REFERENCES blog_posts(id),
+		content TEXT NOT NULL,
+		created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+	);
+	`
+
+	// Execute the SQL statement to create the table
+	_, err := db.Exec(createTableQuery)
+	if err != nil {
+		log.Fatalf("Error creating comments table: %v", err)
+	}
+
+	log.Println("comments table created successfully")
+}

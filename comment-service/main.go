@@ -8,8 +8,8 @@ func main() {
 	r := gin.Default()
 
 	// Define routes
-	r.POST("/api/articles/:articleID/comments", addCommentHandler)
-	r.GET("/api/articles/:articleID/comments", getCommentsHandler)
+	r.POST("/api/blogs/:blogID/comments", addCommentHandler)
+	r.GET("/api/blogs/:blogID/comments", getCommentsHandler)
 	r.PUT("/api/comments/:commentID", updateCommentHandler)
 	r.DELETE("/api/comments/:commentID", deleteCommentHandler)
 

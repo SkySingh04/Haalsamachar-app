@@ -17,12 +17,16 @@ func main() {
 	db.InitDB()
 	defer db.CloseDB()
 
+	db.CreateUsersTable()
+	db.CreateBlogPostsTable()
+	db.CreateCommentsTable()
 	// Create a new Gin router
 	r := gin.Default()
 
 	// Define routes
 	r.GET("/users/:id", getUserByIDHandler)
-	r.GET("/users/:id/blogs", getUserBlogsHandler)
+	r.GET("/users/:id/blogs", getUserBlogPostsHandler)
+	r.GET("/users/:id/comments", getUserCommentsHandler)
 
 	// Run the server
 	if err := r.Run(":8081"); err != nil {
@@ -50,7 +54,7 @@ func getUserByIDHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, user)
 }
 
-func getUserBlogsHandler(c *gin.Context) {
+func getUserBlogPostsHandler(c *gin.Context) {
 	// Extract user ID from request parameters
 	userIDStr := c.Param("id")
 	userID, err := strconv.Atoi(userIDStr)
@@ -68,4 +72,24 @@ func getUserBlogsHandler(c *gin.Context) {
 
 	// Return blogs data as JSON response
 	c.JSON(http.StatusOK, blogs)
+}
+
+func getUserCommentsHandler(c *gin.Context) {
+	// Extract user ID from request parameters
+	userIDStr := c.Param("id")
+	userID, err := strconv.Atoi(userIDStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user ID"})
+		return
+	}
+
+	// Perform database operation to get comments by user ID
+	comments, err := db.GetCommentsByUserID(userID)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch user comments"})
+		return
+	}
+
+	// Return comments data as JSON response
+	c.JSON(http.StatusOK, comments)
 }
