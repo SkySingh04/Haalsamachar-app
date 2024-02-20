@@ -1,4 +1,4 @@
-# HaalSamachar : A Blog Website built with GoLang+Gin in the backend and NextJs+TypeScript in the frontend with PostgreSQL powered database. 
+## HaalSamachar : A Blog Website built with GoLang+Gin in the backend and NextJs+TypeScript in the frontend with PostgreSQL powered database. 
 
 This GoLang application is designed to serve as a blog website that implements multiple services for contract testing. It allows developers to test the contracts between different services to ensure that they communicate as expected.
 
@@ -9,7 +9,29 @@ This GoLang application is designed to serve as a blog website that implements m
 - **Contract Testing**: Utilizes contract testing to verify the interactions and agreements between different services, ensuring that they work together seamlessly.
 - **Modular Design**: Built with a modular design approach, making it easy to add new services or modify existing ones without impacting the entire application.
 
+
+## Getting Started
+
+To get started with this application, follow these steps:
+
+1. **Clone the Repository**: Clone the repository to your local machine.
+   
+2. **Install Dependencies**: Ensure Docker and Docker Compose are installed on your system.
+
+3. **Configure Environment Variables**: Create a `.env` file in the project root directory and set the required environment variables for each service.
+
+4. **Run the Application**: Use Docker Compose to build and start the services:
+   ```bash
+   docker-compose up
+   ```
+   This command will build and start all services defined in the `docker-compose.yml` file.
+
+5. **Access the Application**: Once the services are running, access the blog website through your web browser at respective localhost ports [ 8081 , 8082 , 8083 , 8084 ].
+
+
 ## API Documentation
+
+#### The API is deployed on 4 different services on Render (Thank the lord for their free tier)
 
 ### Auth Service API Documentation
 
@@ -304,30 +326,6 @@ This GoLang application is designed to serve as a blog website that implements m
     }
     ```
 
-## Getting Started
-
-To get started with this application, follow these steps:
-
-1. **Clone the Repository**: Clone this repository to your local machine.
-
-2. **Install Dependencies**: Ensure you have GoLang installed on your system. Then, navigate to the project directory and run:
-   ```
-   go mod tidy
-   ```
-
-3. **Configure Services**: Configure the services according to your requirements. Each service may have its own configuration files or environment variables that need to be set.
-
-4. **Run Tests**: Run the contract tests to verify the interactions between services:
-   ```
-   go test ./...
-   ```
-
-5. **Start the Application**: Start the application by running:
-   ```
-   go run main.go
-   ```
-
-6. **Access the Blog Website**: Once the application is running, you can access the blog website through your web browser at `http://localhost:8080`.
 
 ## Contributing
 
