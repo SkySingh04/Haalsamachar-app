@@ -1,0 +1,18 @@
+FROM golang:1.18-alpine AS build
+
+
+WORKDIR /app
+COPY . .
+
+RUN go mod tidy
+
+RUN go build -o /app/blog-service ./blog-service
+
+
+FROM alpine:latest
+
+WORKDIR /app
+
+COPY --from=build /app/blog-service .
+
+CMD ["./blog-service"]

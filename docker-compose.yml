@@ -1,42 +1,38 @@
 version: '3'
 services:
-  auth-service:
+  users:
     build:
-      context: ./auth-service
-    ports:
-      - "8084:8084"
-    depends_on:
-      - db
-
-  blog-service:
-    build:
-      context: ./blog-service
-    ports:
-      - "8082:8082"
-    depends_on:
-      - db
-
-  user-service:
-    build:
-      context: ./user-service
+      context: .
+      dockerfile: Dockerfile.users
     ports:
       - "8081:8081"
-    depends_on:
-      - db
+    env_file:
+      - .env
 
-  comment-service:
+  blogs:
     build:
-      context: ./comment-service
+      context: .
+      dockerfile: Dockerfile.blogs
+    ports:
+      - "8082:8082"
+    env_file:
+      - .env
+
+  comments:
+    build:
+      context: .
+      dockerfile: Dockerfile.comments
     ports:
       - "8083:8083"
-    depends_on:
-      - db
+    env_file:
+      - .env
 
-  db:
-    image: postgres:latest
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres
+  auth:
+    build:
+      context: .
+      dockerfile: Dockerfile.auth
     ports:
-      - "5432:5432"
+      - "8084:8084"
+    env_file:
+      - .env
+      

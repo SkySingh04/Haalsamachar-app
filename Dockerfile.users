@@ -1,0 +1,23 @@
+FROM golang:1.18-alpine AS build
+
+
+WORKDIR /app
+COPY . .
+
+RUN go mod tidy
+# RUN go build -o /app/comment-service ./comment-service
+RUN go build -o /app/user-service ./user-service
+# RUN go build -o /app/blog-service ./blog-service
+# RUN go build -o /app/auth-service ./auth-service
+
+FROM alpine:latest
+
+WORKDIR /app
+# COPY --from=build /app/comment-service .
+COPY --from=build /app/user-service .
+# COPY --from=build /app/blog-service .
+# COPY --from=build /app/auth-service .
+# CMD ["./comment-service"]
+CMD ["./user-service"]
+# CMD ["./blog-service"]
+# CMD ["./auth-service"]
