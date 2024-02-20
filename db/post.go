@@ -17,3 +17,16 @@ func CreateBlogForUserID(userID int, Title string, Content string) (*models.Blog
 	}
 	return blog, nil
 }
+
+func CreateCommentForBlogID(userID int, blogID int, Content string) (*models.Comment, error) {
+	// Execute SQL query to create comment for blog ID
+	query := "INSERT INTO comments (user_id, blog_id, content) VALUES ($1, $2, $3) RETURNING id, user_id, blog_id, content, created_at"
+	row := db.QueryRow(query, userID, blogID, Content)
+	comment := &models.Comment{}
+	err := row.Scan(&comment.ID, &comment.UserID, &comment.BlogID, &comment.Content, &comment.CreatedAt)
+	if err != nil {
+		log.Printf("Error scanning comment row: %v\n", err)
+		return nil, err
+	}
+	return comment, nil
+}

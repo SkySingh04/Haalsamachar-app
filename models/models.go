@@ -35,3 +35,15 @@ type BlogUpdateRequest struct {
 	Title   string `json:"title"`
 	Content string `json:"content"`
 }
+
+type CommentCreateRequest struct {
+	UserID  int    `json:"userId"`
+	BlogID  int    `json:"blogId"`
+	Content string `json:"content"`
+}
+
+type CommentUpdateRequest struct {
+	BlogId    int    `json:"blogId"`
+	CommentID int    `json:"commentId"`
+	Content   string `json:"content"`
+}

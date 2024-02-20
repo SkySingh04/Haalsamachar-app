@@ -51,14 +51,8 @@ func getUserBlogPostsHandler(c *gin.Context) {
 func getUserCommentsHandler(c *gin.Context) {
 	// Extract user ID from request parameters
 	userIDStr := c.Param("id")
-	userID, err := strconv.Atoi(userIDStr)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user ID"})
-		return
-	}
-
 	// Perform database operation to get comments by user ID
-	comments, err := db.GetCommentsByUserID(userID)
+	comments, err := db.GetCommentsByUserID(userIDStr)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch user comments"})
 		return

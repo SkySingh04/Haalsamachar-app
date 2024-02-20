@@ -41,7 +41,7 @@ func GetBlogPostsByUserID(userID int) ([]*models.BlogPost, error) {
 	return blogsSlice, nil
 }
 
-func GetCommentsByUserID(userID int) ([]*models.Comment, error) {
+func GetCommentsByUserID(userID string) ([]*models.Comment, error) {
 	// Execute SQL query to fetch comments by user ID
 	query := "SELECT id, user_id, blog_id, content, created_at FROM comments WHERE user_id = $1"
 	rows, err := db.Query(query, userID)
@@ -74,4 +74,26 @@ func GetBlogForUserID(userID string, blogID string) (*models.BlogPost, error) {
 		return nil, err
 	}
 	return blog, nil
+}
+
+func GetCommentsByBlogID(BlogId string) ([]*models.Comment, error) {
+	// Execute SQL query to fetch comments by blog ID
+	query := "SELECT id, user_id, blog_id, content, created_at FROM comments WHERE blog_id = $1"
+	rows, err := db.Query(query, BlogId)
+	if err != nil {
+		log.Printf("Error executing query: %v\n", err)
+		return nil, err
+	}
+	defer rows.Close()
+	commentsSlice := []*models.Comment{}
+	for rows.Next() {
+		comment := &models.Comment{}
+		err := rows.Scan(&comment.ID, &comment.UserID, &comment.BlogID, &comment.Content, &comment.CreatedAt)
+		if err != nil {
+			log.Printf("Error scanning comment row: %v\n", err)
+			return nil, err
+		}
+		commentsSlice = append(commentsSlice, comment)
+	}
+	return commentsSlice, nil
 }

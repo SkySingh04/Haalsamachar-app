@@ -1,35 +1,26 @@
 package main
 
 import (
+	"blog/contracttesting/db"
+
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
+	db.InitDB()
+	defer db.CloseDB()
+
+	db.CreateCommentsTable()
+	db.CreateBlogPostsTable()
+	db.CreateUsersTable()
 	r := gin.Default()
 
 	// Define routes
-	r.POST("/api/blogs/:blogID/comments", addCommentHandler)
-	r.GET("/api/blogs/:blogID/comments", getCommentsHandler)
-	r.PUT("/api/comments/:commentID", updateCommentHandler)
-	r.DELETE("/api/comments/:commentID", deleteCommentHandler)
+	r.POST("/comments", addCommentHandler)
+	r.GET("/blogs/:blogID/comments", getCommentsHandler)
+	r.PUT("/comments", updateCommentHandler)
+	r.DELETE("/comments/:commentID", deleteCommentHandler)
 
 	// Run server
 	r.Run(":8083")
-}
-
-// Define handlers
-func addCommentHandler(c *gin.Context) {
-	// Implement add comment logic
-}
-
-func getCommentsHandler(c *gin.Context) {
-	// Implement get comments logic
-}
-
-func updateCommentHandler(c *gin.Context) {
-	// Implement update comment logic
-}
-
-func deleteCommentHandler(c *gin.Context) {
-	// Implement delete comment logic
 }

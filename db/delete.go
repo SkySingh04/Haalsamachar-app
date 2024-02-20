@@ -14,3 +14,14 @@ func DeleteBlogForUserID(userID string, blogID string) error {
 	}
 	return nil
 }
+
+func DeleteCommentByID(commentID string) error {
+	// Execute SQL query to delete comment by ID
+	query := "DELETE FROM comments WHERE id = $1"
+	_, err := db.Exec(query, commentID)
+	if err != nil {
+		log.Printf("Error executing query: %v\n", err)
+		return err
+	}
+	return nil
+}

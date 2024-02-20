@@ -17,3 +17,16 @@ func UpdateBlogForUserID(userID int, blogID int, Title string, Content string) (
 	}
 	return blog, nil
 }
+
+func UpdateCommentForCommentId(blogId int, commentID int, Content string) (*models.Comment, error) {
+	// Execute SQL query to update comment for comment ID
+	query := "UPDATE comments SET content = $1 WHERE id = $2 AND blog_id = $3 RETURNING id, user_id, blog_id, content, created_at"
+	row := db.QueryRow(query, Content, commentID, blogId)
+	comment := &models.Comment{}
+	err := row.Scan(&comment.ID, &comment.UserID, &comment.BlogID, &comment.Content, &comment.CreatedAt)
+	if err != nil {
+		log.Printf("Error scanning comment row: %v\n", err)
+		return nil, err
+	}
+	return comment, nil
+}
