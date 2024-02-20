@@ -300,9 +300,7 @@ This GoLang application is designed to serve as a blog website that implements m
   - **Status Code**: `409`
     ```json
     {
-     
-
- "error": "Username already exists"
+     "error": "Username already exists"
     }
     ```
 
