@@ -1,4 +1,4 @@
-# GoLang Blog Website with Multiple Services for Contract Testing
+# HaalSamachar : A Blog Website built with GoLang+Gin in the backend and NextJs+TypeScript in the frontend with PostgreSQL powered database. 
 
 This GoLang application is designed to serve as a blog website that implements multiple services for contract testing. It allows developers to test the contracts between different services to ensure that they communicate as expected.
 
