@@ -22,3 +22,16 @@ type Comment struct {
 	Content   string `json:"content"`
 	CreatedAt string `json:"created_at"`
 }
+
+type BlogCreateRequest struct {
+	UserID  int    `json:"userId"`
+	Title   string `json:"title"`
+	Content string `json:"content"`
+}
+
+type BlogUpdateRequest struct {
+	UserID  int    `json:"userId"`
+	BlogID  int    `json:"blogId"`
+	Title   string `json:"title"`
+	Content string `json:"content"`
+}

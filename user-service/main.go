@@ -1,6 +1,6 @@
 // user-service/main.go
 
-package userservice
+package main
 
 import (
 	"log"

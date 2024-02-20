@@ -62,3 +62,16 @@ func GetCommentsByUserID(userID int) ([]*models.Comment, error) {
 	}
 	return commentsSlice, nil
 }
+
+func GetBlogForUserID(userID string, blogID string) (*models.BlogPost, error) {
+	// Implement blog retrieval logic
+	query := "SELECT id, user_id, title, content, created_at FROM blog_posts WHERE user_id = $1 AND id = $2"
+	row := db.QueryRow(query, userID, blogID)
+	blog := &models.BlogPost{}
+	err := row.Scan(&blog.ID, &blog.UserID, &blog.Title, &blog.Content, &blog.CreatedAt)
+	if err != nil {
+		log.Printf("Error scanning blog row: %v\n", err)
+		return nil, err
+	}
+	return blog, nil
+}

@@ -1,19 +1,25 @@
-package blogservice
+package main
 
 import (
+	"blog/contracttesting/db"
+
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
+	db.InitDB()
+	defer db.CloseDB()
+
+	db.CreateUsersTable()
+	db.CreateBlogPostsTable()
+	db.CreateCommentsTable()
 	r := gin.Default()
 
 	// Define routes
-	r.POST("/:id/blogs", createblogHandler)
 	r.GET("/:id/blogs/:blogID", getblogHandler)
-	r.PUT("/:id/blogs/:blogID", updateblogHandler)
 	r.DELETE("/:id/blogs/:blogID", deleteblogHandler)
-	r.GET("/:id/blogs", listblogsHandler)
-
+	r.POST("/blogs", createblogHandler)
+	r.PUT("/blogs", updateblogHandler)
 	// Run server
 	r.Run(":8082")
 }

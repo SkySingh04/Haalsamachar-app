@@ -1,4 +1,4 @@
-package userservice
+package main
 
 import (
 	"blog/contracttesting/db"
