@@ -4,7 +4,7 @@ type User struct {
 	ID       string
 	Username string
 	Email    string
-	// Add more fields as needed
+	Password string
 }
 
 type BlogPost struct {
@@ -46,4 +46,13 @@ type CommentUpdateRequest struct {
 	BlogId    int    `json:"blogId"`
 	CommentID int    `json:"commentId"`
 	Content   string `json:"content"`
+}
+
+type LoginRequest struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
+
+type LoginResponse struct {
+	Token string `json:"token"`
 }

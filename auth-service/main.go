@@ -1,11 +1,17 @@
 package main
 
 import (
+	"blog/contracttesting/db"
+
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	r := gin.Default()
+	db.InitDB()
+	defer db.CloseDB()
+
+	db.CreateUsersTable()
 
 	// Define routes
 	r.POST("/api/auth/login", loginHandler)
@@ -14,17 +20,4 @@ func main() {
 
 	// Run server
 	r.Run(":8084")
-}
-
-// Define handlers
-func loginHandler(c *gin.Context) {
-	// Implement login logic
-}
-
-func verifyHandler(c *gin.Context) {
-	// Implement token verification logic
-}
-
-func refreshTokenHandler(c *gin.Context) {
-	// Implement token refresh logic
 }

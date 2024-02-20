@@ -1,5 +1,3 @@
-// user-service/main.go
-
 package main
 
 import (
@@ -25,6 +23,9 @@ func main() {
 	r.GET("/users/:id", getUserByIDHandler)
 	r.GET("/users/:id/blogs", getUserBlogPostsHandler)
 	r.GET("/users/:id/comments", getUserCommentsHandler)
+
+	// Routes for creating a user
+	r.POST("/users", SignupHandler)
 
 	// Run the server
 	if err := r.Run(":8081"); err != nil {

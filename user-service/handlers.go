@@ -2,6 +2,8 @@ package main
 
 import (
 	"blog/contracttesting/db"
+	"blog/contracttesting/models"
+	"blog/contracttesting/utils"
 	"net/http"
 	"strconv"
 
@@ -60,4 +62,24 @@ func getUserCommentsHandler(c *gin.Context) {
 
 	// Return comments data as JSON response
 	c.JSON(http.StatusOK, comments)
+}
+
+func SignupHandler(c *gin.Context) {
+	// Parse JSON request body
+	var req models.User
+	if err := c.BindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON payload"})
+		return
+	}
+	hashedPassword := utils.HashPassword(req.Password)
+
+	// Create a new user in the database
+	user, err := db.CreateUser(req.Username, req.Email, hashedPassword)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create user"})
+		return
+	}
+
+	// Return user data as JSON response
+	c.JSON(http.StatusOK, user)
 }
