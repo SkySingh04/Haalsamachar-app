@@ -20,6 +20,7 @@ func main() {
 	r := gin.Default()
 
 	// Define routes
+	r.GET("/", healthCheckHandler)
 	r.GET("/users/:id", getUserByIDHandler)
 	r.GET("/users/:id/blogs", getUserBlogPostsHandler)
 	r.GET("/users/:id/comments", getUserCommentsHandler)

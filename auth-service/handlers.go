@@ -9,6 +9,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func healthCheckHandler(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{"message": "Auth service is healthy"})
+}
+
 func loginHandler(c *gin.Context) {
 	// Parse JSON request body
 	var req models.LoginRequest

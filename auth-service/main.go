@@ -14,6 +14,8 @@ func main() {
 	db.CreateUsersTable()
 
 	// Define routes
+
+	r.GET("/", healthCheckHandler)
 	r.POST("/api/auth/login", loginHandler)
 	r.GET("/api/auth/verify", verifyHandler)
 	r.POST("/api/auth/refresh", refreshTokenHandler)

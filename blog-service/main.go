@@ -16,6 +16,7 @@ func main() {
 	r := gin.Default()
 
 	// Define routes
+	r.GET("/", healthCheckHandler)
 	r.GET("/:id/blogs/:blogID", getblogHandler)
 	r.DELETE("/:id/blogs/:blogID", deleteblogHandler)
 	r.POST("/blogs", createblogHandler)

@@ -9,6 +9,10 @@ import (
 )
 
 // Define handlers
+func healthCheckHandler(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{"message": "Comment service is healthy"})
+}
+
 func addCommentHandler(c *gin.Context) {
 	// Implement add comment logic
 	var req *models.CommentCreateRequest

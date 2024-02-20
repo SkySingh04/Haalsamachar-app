@@ -16,6 +16,7 @@ func main() {
 	r := gin.Default()
 
 	// Define routes
+	r.GET("/", healthCheckHandler)
 	r.POST("/comments", addCommentHandler)
 	r.GET("/blogs/:blogID/comments", getCommentsHandler)
 	r.PUT("/comments", updateCommentHandler)

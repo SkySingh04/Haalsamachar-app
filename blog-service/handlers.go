@@ -8,6 +8,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func healthCheckHandler(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{"message": "Blog service is healthy"})
+}
+
 func createblogHandler(c *gin.Context) {
 	// Bind the JSON payload of the request to a struct
 	var req models.BlogCreateRequest

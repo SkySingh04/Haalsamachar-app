@@ -10,6 +10,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func healthCheckHandler(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{"message": "User service is healthy"})
+}
 func getUserByIDHandler(c *gin.Context) {
 	// Extract user ID from request parameters
 	userIDStr := c.Param("id")
