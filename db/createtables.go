@@ -6,14 +6,14 @@ func CreateBlogPostsTable() {
 	// SQL statement to create the blog_posts table
 	const createTableQuery = `
     CREATE TABLE IF NOT EXISTS blog_posts (
-        id SERIAL PRIMARY KEY,
-        user_id INTEGER NOT NULL REFERENCES users(id),
-        title VARCHAR(255) NOT NULL,
-        content TEXT NOT NULL,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-		subtitle VARCHAR(255) NOT NULL,
-		image VARCHAR(255) 
-    );
+		id SERIAL PRIMARY KEY,
+		user_id INTEGER NOT NULL REFERENCES users(id),
+		title TEXT NOT NULL,
+		content TEXT NOT NULL,
+		created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+		subtitle TEXT NOT NULL,
+		image TEXT
+	);	
     `
 
 	// Execute the SQL statement to create the table

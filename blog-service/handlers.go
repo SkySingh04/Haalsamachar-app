@@ -21,7 +21,7 @@ func createblogHandler(c *gin.Context) {
 	}
 
 	// Perform database operation to create blog for user ID
-	blog, err := db.CreateBlogForUserID(req.UserID, req.Title, req.Content)
+	blog, err := db.CreateBlogForUserID(req.UserID, req.Title, req.Content, req.Subtitle, req.Image)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create blog"})
 		return

@@ -2,15 +2,17 @@ package db
 
 import (
 	"blog/contracttesting/models"
+	"fmt"
 	"log"
 )
 
-func CreateBlogForUserID(userID int, Title string, Content string) (*models.BlogPost, error) {
+func CreateBlogForUserID(userID int, Title string, Content string, Subtitle string, Image string) (*models.BlogPost, error) {
 	// Execute SQL query to create blog for user ID
-	query := "INSERT INTO blog_posts (user_id, title, content) VALUES ($1, $2, $3) RETURNING id, user_id, title, content, created_at"
-	row := db.QueryRow(query, userID, Title, Content)
+	query := "INSERT INTO blog_posts (user_id, title, content , subtitle , image)  VALUES ($1, $2, $3 , $4 , $5) RETURNING id, user_id, title, content, created_at , subtitle , image"
+	row := db.QueryRow(query, userID, Title, Content, Subtitle, Image)
 	blog := &models.BlogPost{}
-	err := row.Scan(&blog.ID, &blog.UserID, &blog.Title, &blog.Content, &blog.CreatedAt)
+	fmt.Println("blog", blog)
+	err := row.Scan(&blog.ID, &blog.UserID, &blog.Title, &blog.Content, &blog.CreatedAt, &blog.Subtitle, &blog.Image)
 	if err != nil {
 		log.Printf("Error scanning blog row: %v\n", err)
 		return nil, err
