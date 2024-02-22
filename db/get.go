@@ -43,7 +43,7 @@ func GetAllUsers() ([]*models.User, error) {
 
 func GetAllBlogPosts() ([]*models.BlogPost, error) {
 	// Execute SQL query to fetch all blog posts
-	query := "SELECT id, user_id, title, content, ,created_at , subtitle , image FROM blog_posts"
+	query := "SELECT id, user_id, title, content, created_at, subtitle, image FROM blog_posts"
 	rows, err := db.Query(query)
 	if err != nil {
 		log.Printf("Error executing query: %v\n", err)
