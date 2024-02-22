@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
+import { Inter , Dosis } from "next/font/google";
 
+import "./globals.css";
+import Footer from "./components/Footer";
 const inter = Inter({ subsets: ["latin"] });
+const dosis = Dosis({
+  subsets: ["latin"],
+  weight: "600"
+}  );
 
 export const metadata: Metadata = {
   title: "HaalSamachar",
@@ -17,8 +22,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       
-      <body className={inter.className}>
-        {children}</body>
+      <body className={dosis.className}>
+        {children}
+        <Footer />
+        </body>
+        
     </html>
   );
 }
