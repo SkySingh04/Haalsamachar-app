@@ -43,7 +43,7 @@ func GetAllUsers() ([]*models.User, error) {
 
 func GetAllBlogPosts() ([]*models.BlogPost, error) {
 	// Execute SQL query to fetch all blog posts
-	query := "SELECT id, user_id, title, content, subtitle , created_at FROM blog_posts"
+	query := "SELECT id, user_id, title, content, ,created_at , subtitle , image FROM blog_posts"
 	rows, err := db.Query(query)
 	if err != nil {
 		log.Printf("Error executing query: %v\n", err)
@@ -53,7 +53,7 @@ func GetAllBlogPosts() ([]*models.BlogPost, error) {
 	blogsSlice := []*models.BlogPost{}
 	for rows.Next() {
 		blog := &models.BlogPost{}
-		err := rows.Scan(&blog.ID, &blog.UserID, &blog.Title, &blog.Content, &blog.CreatedAt)
+		err := rows.Scan(&blog.ID, &blog.UserID, &blog.Title, &blog.Content, &blog.CreatedAt, &blog.Subtitle, &blog.Image)
 		if err != nil {
 			log.Printf("Error scanning blog row: %v\n", err)
 			return nil, err
