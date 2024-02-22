@@ -1,6 +1,11 @@
-import Image from "next/image";
+'use client'
 import Header from "./components/Header";
 import BlogCard from "./components/BlogCard";
+import { useEffect  , useState} from "react";
+
+
+
+
 
 const blogs = [
   {
@@ -21,6 +26,18 @@ const blogs = [
   }
 ];
 export default function Home() {
+
+  const [blogs, setBlogs] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch('https://haalsamachar-users.onrender.com/users/1/blogs');
+      const data = await response.json();
+      setBlogs(data);
+    };
+    fetchData();
+  }, []);
+
+
   return (
     <div className="sage">
       <Header bgImage="./homebg.jpg" />

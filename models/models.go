@@ -13,6 +13,8 @@ type BlogPost struct {
 	Title     string `json:"title"`
 	Content   string `json:"content"`
 	CreatedAt string `json:"created_at"`
+	Subtitle  string `json:"subtitle"`
+	Image     string `json:"image"`
 }
 
 type Comment struct {
@@ -24,16 +26,20 @@ type Comment struct {
 }
 
 type BlogCreateRequest struct {
-	UserID  int    `json:"userId"`
-	Title   string `json:"title"`
-	Content string `json:"content"`
+	UserID   int    `json:"userId"`
+	Title    string `json:"title"`
+	Content  string `json:"content"`
+	Subtitle string `json:"subtitle"`
+	Image    string `json:"image"`
 }
 
 type BlogUpdateRequest struct {
-	UserID  int    `json:"userId"`
-	BlogID  int    `json:"blogId"`
-	Title   string `json:"title"`
-	Content string `json:"content"`
+	UserID   int    `json:"userId"`
+	BlogID   int    `json:"blogId"`
+	Title    string `json:"title"`
+	Content  string `json:"content"`
+	Subtitle string `json:"subtitle"`
+	Image    string `json:"image"`
 }
 
 type CommentCreateRequest struct {

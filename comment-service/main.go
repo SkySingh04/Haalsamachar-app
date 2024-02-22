@@ -3,6 +3,7 @@ package main
 import (
 	"blog/contracttesting/db"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -14,6 +15,11 @@ func main() {
 	db.CreateBlogPostsTable()
 	db.CreateUsersTable()
 	r := gin.Default()
+	// Configure CORS middleware
+	config := cors.DefaultConfig()
+	config.AllowOrigins = []string{"http://localhost:3000"} // Add your frontend origin here
+	config.AllowMethods = []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}
+	r.Use(cors.New(config))
 
 	// Define routes
 	r.GET("/", healthCheckHandler)

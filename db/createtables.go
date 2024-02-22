@@ -11,6 +11,8 @@ func CreateBlogPostsTable() {
         title VARCHAR(255) NOT NULL,
         content TEXT NOT NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+		subtitle VARCHAR(255) NOT NULL,
+		image VARCHAR(255) 
     );
     `
 

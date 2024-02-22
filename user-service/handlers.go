@@ -67,6 +67,30 @@ func getUserCommentsHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, comments)
 }
 
+func getAllBlogPostsHandler(c *gin.Context) {
+	// Perform database operation to get all blog posts
+	blogs, err := db.GetAllBlogPosts()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch blog posts"})
+		return
+	}
+
+	// Return blog posts data as JSON response
+	c.JSON(http.StatusOK, blogs)
+}
+
+func getAllUsersHandler(c *gin.Context) {
+	// Perform database operation to get all users
+	users, err := db.GetAllUsers()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch users"})
+		return
+	}
+
+	// Return users data as JSON response
+	c.JSON(http.StatusOK, users)
+}
+
 func SignupHandler(c *gin.Context) {
 	// Parse JSON request body
 	var req models.User

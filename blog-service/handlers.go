@@ -37,7 +37,7 @@ func getblogHandler(c *gin.Context) {
 	var userID = c.Param("id")
 	var blogID = c.Param("blogID")
 
-	blog, err := db.GetBlogForUserID(userID, blogID)
+	blog, err := db.GetBlogForBlogID(userID, blogID)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to retrieve blog"})
 		return
