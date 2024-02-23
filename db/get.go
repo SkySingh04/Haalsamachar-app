@@ -64,11 +64,11 @@ func GetAllBlogPosts() ([]*models.BlogPost, error) {
 }
 
 func GetUserByUsername(username string) (*models.User, error) {
-	query := "SELECT id, username, email FROM users WHERE username = $1"
+	query := "SELECT id, username, email , Password FROM users WHERE username = $1"
 	row := db.QueryRow(query, username)
 
 	user := &models.User{}
-	err := row.Scan(&user.ID, &user.Username, &user.Email)
+	err := row.Scan(&user.ID, &user.Username, &user.Email, &user.Password)
 	if err != nil {
 		log.Printf("Error scanning user row: %v\n", err)
 		return nil, err
