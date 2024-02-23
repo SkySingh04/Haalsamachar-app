@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Inter , Dosis } from "next/font/google";
-
 import "./globals.css";
 import Footer from "./components/Footer";
 const inter = Inter({ subsets: ["latin"] });
@@ -19,11 +18,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // const session = await getServerSession(authOptions)
   return (
     <html lang="en">
       
       <body className={dosis.className}>
+      {/* <Provider session={session}> */}
         {children}
+        {/* </Provider> */}
         <Footer />
         </body>
         

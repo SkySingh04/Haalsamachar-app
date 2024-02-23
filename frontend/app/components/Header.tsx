@@ -1,5 +1,12 @@
+
 import React from 'react';
 import localFont from "@next/font/local"
+import { auth } from '@/auth';
+import { useFormState } from 'react-dom';
+import { signout } from '../lib/actions';
+// import { authOptions } from "../pages/api/auth/[...nextauth]/route";
+// import { getServerSession } from "next-auth/next"
+
 
 const against = localFont({
   src: "../../public/fonts/Against.ttf",
@@ -7,8 +14,9 @@ const against = localFont({
 })
 
 
-const isLoggedIn = false;
-const Header = ({bgImage}: {bgImage: string}) => {
+const isLoggedIn = !!auth
+const Header =  ({bgImage}: {bgImage: string}) => {
+  const [errorMessage, dispatch] = useFormState(signout, undefined);
   return (
     <div className={`${against.className}`} style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.5)), url(${bgImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
     <nav className=" text-bt-peach flex justify-end">
@@ -21,10 +29,13 @@ const Header = ({bgImage}: {bgImage: string}) => {
                 <a href="/about" className="text-bt-peach hover:bg-bt-navy hover:text-black px-3 py-2 rounded-md text-xl font-[100px]">About</a>
                 <a href="/contact" className="text-bt-peach hover:bg-bt-navy hover:text-black px-3 py-2 rounded-md text-xl font-[100px]">Contact</a>
                 {isLoggedIn ? (
-                    <a href="/" className="text-bt-peach hover:bg-bt-navy hover:text-black px-3 py-2 rounded-md text-xl font-[100px]">Logout</a>
-                ) : (
+                  <form action={dispatch}>
+                    <button  className="text-bt-peach hover:bg-bt-navy hover:text-black px-3 py-2 rounded-md text-xl font-[100px]">Logout</button>
+                  </form>
+                )
+                 : (
                   <>
-                  <a href="/login" className="text-bt-peach hover:bg-bt-navy hover:text-black px-3 py-2 rounded-md text-xl font-[100px]">Login</a>
+                  <a href="/login" className="text-bt-peach hover:bg-bt-navy hover:text-black px-3 py-2 rounded-md text-xl font-[100px]" >Login</a>
                   <a href="/signup" className="text-bt-peach hover:bg-bt-navy hover:text-black px-3 py-2 rounded-md text-xl font-[100px]">Signup</a>
                   </>
                 )}
