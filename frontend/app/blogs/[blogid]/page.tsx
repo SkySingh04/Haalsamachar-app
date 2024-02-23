@@ -45,7 +45,9 @@ const Page = () => {
   }, [blogid]);
 
   if (!blog) {
-    return <div>Loading...</div>;
+    return <div>
+      <Header bgImage='' heading='Loading' subheading='' ></Header>
+      </div>;
   }
 
   const formattedDate = formatDate(blog.created_at);
