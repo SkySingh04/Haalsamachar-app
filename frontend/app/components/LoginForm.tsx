@@ -1,11 +1,14 @@
-'use client';
+'use client'
 import { useFormState, useFormStatus } from 'react-dom';
 import { authenticate } from '../lib/actions';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useState } from 'react';
+
 export default function LoginForm() {
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
-
+  const [loading ,  setLoading] = useState(false)
+  const { pending } = useFormStatus();
   return (
     <form action={dispatch} className="space-y-3">
       <div className="flex-1 rounded-lg bg-bt-navy px-6 pb-4 pt-8">
@@ -38,7 +41,7 @@ export default function LoginForm() {
             </div>
           </div>
         </div>
-        <LoginButton />
+        <LoginButton loading={loading} setLoading={setLoading} />
         <div
           className="flex h-8 items-end space-x-1"
           aria-live="polite"
@@ -46,6 +49,8 @@ export default function LoginForm() {
         >
           {errorMessage && (
             <>
+              {toast.error(errorMessage)}
+              {setLoading(false)}
               <p className="text-sm text-red-500">{errorMessage}</p>
             </>
           )}
@@ -55,12 +60,18 @@ export default function LoginForm() {
   );
 }
 
-function LoginButton() {
-  const { pending } = useFormStatus();
+function LoginButton({ loading , setLoading }: { loading: boolean , setLoading: any }) {
 
+  const handleClick =()=>{
+    setLoading(true)
+  }
   return (
-    <button className="mt-4 w-full bg-bt-teal hover:bg-bt-sage text-white py-2 rounded-md transition duration-300" aria-disabled={pending}>
-      Log in
+    <button
+      className={`mt-4 w-full bg-bt-teal hover:bg-bt-sage text-white py-2 rounded-md transition duration-300`}
+      aria-disabled={loading}
+      onClick={handleClick}
+    >
+      {loading ? 'Logging in...' : 'Log in'}
     </button>
   );
 }

@@ -3,10 +3,6 @@ import React, { useEffect , useState } from 'react';
 import localFont from "@next/font/local"
 import { useFormState } from 'react-dom';
 import { signout } from '../lib/actions';
-import  getServerSession  from "next-auth"
-import { authConfig } from '@/auth.config';
-import {auth} from '@/auth';
-
 
 const against = localFont({
   src: "../../public/fonts/Against.ttf",
