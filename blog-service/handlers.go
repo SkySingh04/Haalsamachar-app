@@ -34,10 +34,9 @@ func createblogHandler(c *gin.Context) {
 func getblogHandler(c *gin.Context) {
 	// Implement blog retrieval logic
 	var blog *models.BlogPost
-	var userID = c.Param("id")
 	var blogID = c.Param("blogID")
 
-	blog, err := db.GetBlogForBlogID(userID, blogID)
+	blog, err := db.GetBlogForBlogID(blogID)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to retrieve blog"})
 		return

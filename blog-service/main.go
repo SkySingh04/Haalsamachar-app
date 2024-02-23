@@ -22,7 +22,7 @@ func main() {
 	r.Use(cors.New(config))
 	// Define routes
 	r.GET("/", healthCheckHandler)
-	r.GET("/:id/blogs/:blogID", getblogHandler)
+	r.GET("/blogs/:blogID", getblogHandler)
 	r.DELETE("/:id/blogs/:blogID", deleteblogHandler)
 	r.POST("/blogs", createblogHandler)
 	r.PUT("/blogs", updateblogHandler)

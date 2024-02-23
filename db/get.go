@@ -121,12 +121,12 @@ func GetCommentsByUserID(userID string) ([]*models.Comment, error) {
 	return commentsSlice, nil
 }
 
-func GetBlogForBlogID(userID string, blogID string) (*models.BlogPost, error) {
+func GetBlogForBlogID(blogID string) (*models.BlogPost, error) {
 	// Implement blog retrieval logic
-	query := "SELECT id, user_id, title, content, subtitle , image  created_at FROM blog_posts WHERE user_id = $1 AND id = $2"
-	row := db.QueryRow(query, userID, blogID)
+	query := "SELECT id, user_id, title, content, subtitle , image , created_at FROM blog_posts WHERE id = $1"
+	row := db.QueryRow(query, blogID)
 	blog := &models.BlogPost{}
-	err := row.Scan(&blog.ID, &blog.UserID, &blog.Title, &blog.Content, &blog.CreatedAt)
+	err := row.Scan(&blog.ID, &blog.UserID, &blog.Title, &blog.Content, &blog.Subtitle, &blog.Image, &blog.CreatedAt)
 	if err != nil {
 		log.Printf("Error scanning blog row: %v\n", err)
 		return nil, err

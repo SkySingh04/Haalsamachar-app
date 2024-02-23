@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from "react";
 import localFont from "@next/font/local"
+import Link from "next/link";
 const against = localFont({
   src: "../../public/fonts/Against.ttf",
   variable: "--Against",
@@ -51,6 +52,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
 
   const formattedDate = formatDate(blog.created_at);
   return (
+    <Link href={`/blogs/${blog.id}`}>
     <div className="px-4 flex  flex-col items-left text-left mx-auto">
       <h2 className={`${against.className} text-2xl mt-4 text-left text-bt-teal`}>{blog.title}</h2>
       <p className="text-bt-sage mt-2 text-xl">{blog.subtitle}</p>
@@ -59,6 +61,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
         <p className="text-bt-sage text-lg ">{formattedDate}</p>
       </div>
     </div>
+    </Link>
   );
 };
 

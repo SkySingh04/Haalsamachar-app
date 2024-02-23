@@ -1,13 +1,13 @@
 version: '3'
 services:
-  users:
-    build:
-      context: .
-      dockerfile: Dockerfile.users
-    ports:
-      - "8081:8081"
-    env_file:
-      - .env
+  # users:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.users
+  #   ports:
+  #     - "8081:8081"
+  #   env_file:
+  #     - .env
 
   blogs:
     build:
@@ -18,21 +18,21 @@ services:
     env_file:
       - .env
 
-  comments:
-    build:
-      context: .
-      dockerfile: Dockerfile.comments
-    ports:
-      - "8083:8083"
-    env_file:
-      - .env
+  # comments:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.comments
+  #   ports:
+  #     - "8083:8083"
+  #   env_file:
+  #     - .env
 
-  auth:
-    build:
-      context: .
-      dockerfile: Dockerfile.auth
-    ports:
-      - "8084:8084"
-    env_file:
-      - .env
+  # auth:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.auth
+  #   ports:
+  #     - "8084:8084"
+  #   env_file:
+  #     - .env
       
