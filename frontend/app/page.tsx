@@ -21,7 +21,10 @@ export default function Home() {
 
   return (
     <div className="sage">
-      <Header bgImage="./homebg.jpg" />
+      <Header bgImage="./homebg.jpg" 
+      heading="HaalSamachar"
+      subheading="Just to keep a check on your HaalSamachar"
+      />
       <div className="grid grid-cols-1 gap-4 text-left mt-14">
         {blogs.map((blog, index) => (
           <>

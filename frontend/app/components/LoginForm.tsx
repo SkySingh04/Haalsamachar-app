@@ -1,17 +1,19 @@
 'use client';
 import { useFormState, useFormStatus } from 'react-dom';
 import { authenticate } from '../lib/actions';
- 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function LoginForm() {
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
- 
+
   return (
     <form action={dispatch} className="space-y-3">
       <div className="flex-1 rounded-lg bg-bt-navy px-6 pb-4 pt-8">
-        <h1 className={`mb-3 text-2xl`}>
+        <h1 className="mb-3 text-2xl text-bt-peach">
           Please log in to continue.
         </h1>
         <div className="w-full">
+          <ToastContainer />
           <div>
             <div className="relative">
               <input
@@ -52,13 +54,13 @@ export default function LoginForm() {
     </form>
   );
 }
- 
+
 function LoginButton() {
   const { pending } = useFormStatus();
- 
+
   return (
-    <button className="mt-4 w-full" aria-disabled={pending}>
-      Log in 
+    <button className="mt-4 w-full bg-bt-teal hover:bg-bt-sage text-white py-2 rounded-md transition duration-300" aria-disabled={pending}>
+      Log in
     </button>
   );
 }

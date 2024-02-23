@@ -1,11 +1,111 @@
-import React from 'react'
+'use client'
+import React, { useState } from 'react';
+import Header from '../components/Header';
+import { useRouter } from 'next/navigation';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+const SignupPage = () => {
+  const router = useRouter();
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    password: '',
+  });
 
-const page = () => {
+  const handleChange = (e: any) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e : any) => {
+    e.preventDefault();
+
+    
+    try {
+      const response = await fetch('https://haalsamachar-users.onrender.com/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      if (response.ok) {
+        const user = await response.json();
+        console.log('User created:', user);
+        toast.success("Sign Up Successful!")
+        router.push('/login')
+      } else {
+        console.error('Failed to create user');
+        toast.error('Failed to SignUp');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      toast.error('Failed to SignUp : ' + error);
+    }
+  };
+
   return (
     <div>
-      Signup
+      <Header
+        bgImage="/signup.jpeg"
+        heading="Signup"
+        subheading="Signup to write beautiful blogs."
+      />
+      <div className="max-w-md mx-auto mt-8 p-6 bg-bt-navy text-bt-peach shadow-md rounded-md">
+        <h2 className="text-xl font-semibold mb-4">Signup</h2>
+        <ToastContainer />
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label htmlFor="username" className="block text-sm font-medium text-bt-peach">
+              Username
+            </label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+              required
+              className="text-bt-navy p-4 text-lg h-8 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-500 focus:ring-opacity-50"
+            />
+          </div>
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-bt-peach">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              className="text-bt-navy p-4 text-lg h-8 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-500 focus:ring-opacity-50"
+            />
+          </div>
+          <div>
+            <label htmlFor="password" className="block text-sm font-medium text-bt-peach">
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+              className="text-bt-navy p-4 text-lg h-8 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-500 focus:ring-opacity-50"
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+          >
+            Signup
+          </button>
+        </form>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default SignupPage;

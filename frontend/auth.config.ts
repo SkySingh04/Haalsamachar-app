@@ -7,23 +7,21 @@ export const authConfig = {
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
-      console.log('isLoggedIn', isLoggedIn);
-      const isOnDashboard = nextUrl.pathname.startsWith('/dashboard');
+      const isCreatePostPage = nextUrl.pathname === '/createpost';
       const isLoginPage = nextUrl.pathname === '/login';
-  
-      if (isOnDashboard) {
-        // Redirect unauthenticated users to login page
-        if (!isLoggedIn) return false;
-      } else if (isLoggedIn && isLoginPage) {
-        // Don't redirect if user is logged in and accessing login page
-        return true;
-      } else if (!isLoggedIn && !isLoginPage) {
-        // Redirect unauthenticated users to login page for other pages
+      const isSignUpPage = nextUrl.pathname === '/signup';
+      console.log('isLoggedIn', isLoggedIn);
+      if (isCreatePostPage && !isLoggedIn) {
         return false;
       }
-  
-      // Allow access for authenticated users or login page
+      else if (isLoginPage && isLoggedIn) {
+        return Response.redirect(new URL('/createpost', nextUrl));
+      }
+      else if (isSignUpPage && isLoggedIn) {
+        return Response.redirect(new URL('/createpost', nextUrl));
+      }
       return true;
+
     },
   },
   

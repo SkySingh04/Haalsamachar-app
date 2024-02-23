@@ -1,11 +1,11 @@
-
-import React from 'react';
+'use client';
+import React, { useEffect , useState } from 'react';
 import localFont from "@next/font/local"
-import { auth } from '@/auth';
 import { useFormState } from 'react-dom';
 import { signout } from '../lib/actions';
-// import { authOptions } from "../pages/api/auth/[...nextauth]/route";
-// import { getServerSession } from "next-auth/next"
+import  getServerSession  from "next-auth"
+import { authConfig } from '@/auth.config';
+import {auth} from '@/auth';
 
 
 const against = localFont({
@@ -13,10 +13,10 @@ const against = localFont({
   variable: "--Against",
 })
 
-
-const isLoggedIn = !!auth
-const Header =  ({bgImage}: {bgImage: string}) => {
+const Header = ({ bgImage, heading, subheading }: { bgImage: string; heading: string; subheading: string; }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [errorMessage, dispatch] = useFormState(signout, undefined);
+
   return (
     <div className={`${against.className}`} style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.5)), url(${bgImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
     <nav className=" text-bt-peach flex justify-end">
@@ -28,17 +28,14 @@ const Header =  ({bgImage}: {bgImage: string}) => {
                 <a href="/" className="text-bt-peach hover:bg-bt-navy hover:text-black px-3 py-2 rounded-md text-xl font-[100px]">Home</a>
                 <a href="/about" className="text-bt-peach hover:bg-bt-navy hover:text-black px-3 py-2 rounded-md text-xl font-[100px]">About</a>
                 <a href="/contact" className="text-bt-peach hover:bg-bt-navy hover:text-black px-3 py-2 rounded-md text-xl font-[100px]">Contact</a>
-                {isLoggedIn ? (
-                  <form action={dispatch}>
-                    <button  className="text-bt-peach hover:bg-bt-navy hover:text-black px-3 py-2 rounded-md text-xl font-[100px]">Logout</button>
-                  </form>
-                )
-                 : (
+                  
                   <>
                   <a href="/login" className="text-bt-peach hover:bg-bt-navy hover:text-black px-3 py-2 rounded-md text-xl font-[100px]" >Login</a>
                   <a href="/signup" className="text-bt-peach hover:bg-bt-navy hover:text-black px-3 py-2 rounded-md text-xl font-[100px]">Signup</a>
+                  <form action={dispatch}>
+                    <button  className="text-bt-peach hover:bg-bt-navy hover:text-black px-3 py-2 rounded-md text-xl font-[100px]">Logout</button>
+                  </form>
                   </>
-                )}
               </div>
             </div>
           </div>
@@ -46,8 +43,8 @@ const Header =  ({bgImage}: {bgImage: string}) => {
       </div>
     </nav>
     <div className='w-full h-[60vh] flex items-center justify-center flex-col'>
-      <p className='text-7xl mb-4 text-center text-white'>HaalSamachar</p>
-      <p className='text-xl text-center text-white'>Just to keep a check on your HaalSamachar</p>
+      <p className='text-7xl mb-4 text-center text-white'>{heading}</p>
+      <p className='text-xl text-center text-white'>{subheading}</p>
     </div>
     </div>
   );
