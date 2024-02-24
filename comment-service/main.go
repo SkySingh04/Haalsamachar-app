@@ -17,7 +17,7 @@ func main() {
 	r := gin.Default()
 	// Configure CORS middleware
 	config := cors.DefaultConfig()
-	config.AllowOrigins = []string{"http://localhost:3000"} // Add your frontend origin here
+	config.AllowOrigins = []string{"https://haal-samachar.vercel.app/"} // Add your frontend origin here
 	config.AllowMethods = []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}
 	r.Use(cors.New(config))
 
