@@ -30,7 +30,7 @@ export default function Home() {
       <Header
         bgImage="./homebg.jpg"
         heading="HaalSamachar"
-        subheading="Just to keep a check on your HaalSamachar"
+        subheading="Aur batao, Kya Haal Samachar?"
       />
       {loading ? (
         <div className="flex justify-center items-center h-screen">
