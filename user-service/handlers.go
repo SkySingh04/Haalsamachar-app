@@ -33,6 +33,21 @@ func getUserByIDHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, user)
 }
 
+func getUserByUsernameHandler(c *gin.Context) {
+	// Extract username from request parameters
+	username := c.Param("username")
+
+	// Perform database operation to get user by username
+	user, err := db.GetUserByUsername(username)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch user"})
+		return
+	}
+
+	// Return user data as JSON response
+	c.JSON(http.StatusOK, user)
+}
+
 func getUserBlogPostsHandler(c *gin.Context) {
 	// Extract user ID from request parameters
 	userIDStr := c.Param("id")

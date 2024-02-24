@@ -5,12 +5,12 @@ import (
 	"log"
 )
 
-func UpdateBlogForUserID(userID int, blogID int, Title string, Content string) (*models.BlogPost, error) {
+func UpdateBlogForUserID(userID int, blogID int, Title string, Content string, Subtitle string, Image string) (*models.BlogPost, error) {
 	// Execute SQL query to update blog for user ID
-	query := "UPDATE blog_posts SET title = $1, content = $2 WHERE id = $3 AND user_id = $4 RETURNING id, user_id, title, content, created_at"
-	row := db.QueryRow(query, Title, Content, blogID, userID)
+	query := "UPDATE blog_posts SET title = $1, content = $2 , subtitle = $5 , image = $6  WHERE id = $3 AND user_id = $4 RETURNING id, user_id, title, content, created_at , subtitle , image"
+	row := db.QueryRow(query, Title, Content, blogID, userID, Subtitle, Image)
 	blog := &models.BlogPost{}
-	err := row.Scan(&blog.ID, &blog.UserID, &blog.Title, &blog.Content, &blog.CreatedAt)
+	err := row.Scan(&blog.ID, &blog.UserID, &blog.Title, &blog.Content, &blog.CreatedAt, &blog.Subtitle, &blog.Image)
 	if err != nil {
 		log.Printf("Error scanning blog row: %v\n", err)
 		return nil, err

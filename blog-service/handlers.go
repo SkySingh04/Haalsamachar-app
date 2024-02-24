@@ -55,7 +55,7 @@ func updateblogHandler(c *gin.Context) {
 	}
 
 	// Perform database operation to update blog for user ID
-	blog, err := db.UpdateBlogForUserID(req.UserID, req.BlogID, req.Title, req.Content)
+	blog, err := db.UpdateBlogForUserID(req.UserID, req.BlogID, req.Title, req.Content, req.Subtitle, req.Image)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update blog"})
 		return

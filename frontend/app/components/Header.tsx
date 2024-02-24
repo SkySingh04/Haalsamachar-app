@@ -2,16 +2,25 @@
 import React, { useEffect , useState } from 'react';
 import localFont from "@next/font/local"
 import { useFormState } from 'react-dom';
-import { signout } from '../lib/actions';
+import {  signout } from '../lib/actions';
+import {auth} from '@/auth';
+
 
 const against = localFont({
   src: "../../public/fonts/Against.ttf",
   variable: "--Against",
 })
 
-const Header = ({ bgImage, heading, subheading }: { bgImage: string; heading: string; subheading: string; }) => {
+
+const Header =  ({ bgImage, heading, subheading }: { bgImage: string; heading: string; subheading: string; }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [errorMessage, dispatch] = useFormState(signout, undefined);
+  // const [session, setSession] = useFormState(getAuth, undefined);
+  // const session = await auth();
+  // if (session) {
+  //   setIsLoggedIn(true);
+  // }
+
 
   return (
     <div className={`${against.className}`} style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.5)), url(${bgImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
@@ -24,14 +33,24 @@ const Header = ({ bgImage, heading, subheading }: { bgImage: string; heading: st
                 <a href="/" className="text-bt-peach hover:bg-bt-navy hover:text-black px-3 py-2 rounded-md text-xl font-[100px]">Home</a>
                 <a href="/about" className="text-bt-peach hover:bg-bt-navy hover:text-black px-3 py-2 rounded-md text-xl font-[100px]">About</a>
                 <a href="/contact" className="text-bt-peach hover:bg-bt-navy hover:text-black px-3 py-2 rounded-md text-xl font-[100px]">Contact</a>
-                  
+                  {/* {isLoggedIn ? (
+                    <form action={dispatch}>
+                      <button className="text-bt-peach hover:bg-bt-navy hover:text-black px-3 py-2 rounded-md text-xl font-[100px]">Logout</button>
+                    </form>
+                  ) : (
+                    <>
+                      <a href="/login" className="text-bt-peach hover:bg-bt-navy hover:text-black px-3 py-2 rounded-md text-xl font-[100px]">Login</a>
+                      <a href="/signup" className="text-bt-peach hover:bg-bt-navy hover:text-black px-3 py-2 rounded-md text-xl font-[100px]">Signup</a>
+                    </>
+                  )} */
+                  }
                   <>
-                  <a href="/login" className="text-bt-peach hover:bg-bt-navy hover:text-black px-3 py-2 rounded-md text-xl font-[100px]" >Login</a>
+                  <a href="/login" className="text-bt-peach hover:bg-bt-navy hover:text-black px-3 py-2 rounded-md text-xl font-[100px]">Login</a>
                   <a href="/signup" className="text-bt-peach hover:bg-bt-navy hover:text-black px-3 py-2 rounded-md text-xl font-[100px]">Signup</a>
-                  <form action={dispatch}>
-                    <button  className="text-bt-peach hover:bg-bt-navy hover:text-black px-3 py-2 rounded-md text-xl font-[100px]">Logout</button>
-                  </form>
-                  </>
+                </>
+                <form action={dispatch}>
+                      <button className="text-bt-peach hover:bg-bt-navy hover:text-black px-3 py-2 rounded-md text-xl font-[100px]">Logout</button>
+                    </form>
               </div>
             </div>
           </div>

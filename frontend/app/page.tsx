@@ -4,9 +4,11 @@ import BlogCard from "./components/BlogCard";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
+
 export default function Home() {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
+  
 
   useEffect(() => {
     const fetchData = async () => {
