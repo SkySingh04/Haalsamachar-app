@@ -37,7 +37,7 @@ export default function Home() {
           <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-bt-peach"></div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 gap-4 text-left mt-14">
+        <div className="grid grid-cols-1 gap-4 justify-center mt-14">
           {blogs.map((blog, index) => (
             <>
               <BlogCard key={index} blog={blog} />

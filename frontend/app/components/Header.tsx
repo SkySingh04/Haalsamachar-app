@@ -2,8 +2,9 @@
 import React, { useEffect , useState } from 'react';
 import localFont from "@next/font/local"
 import { useFormState } from 'react-dom';
-import {  signout } from '../lib/actions';
+import { getAuth, signout } from '../lib/actions';
 import {auth} from '@/auth';
+
 
 
 const against = localFont({
@@ -15,7 +16,7 @@ const against = localFont({
 const Header =  ({ bgImage, heading, subheading }: { bgImage: string; heading: string; subheading: string; }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [errorMessage, dispatch] = useFormState(signout, undefined);
-  // const [session, setSession] = useFormState(getAuth, undefined);
+  const [session, setSession] = useFormState(getAuth, undefined);
   // const session = await auth();
   // if (session) {
   //   setIsLoggedIn(true);
