@@ -55,18 +55,18 @@ const Page = () => {
   return (
     <div>
       <Header bgImage={blog.image} heading={blog.title} subheading={blog.subtitle} />
-    <div className="container mt-12 mx-auto p-4 border-x-4 flex justify-center flex-col items-center border-bt-navy">
-    {/* <p className="text-2xl text-bt-peach text-center w-10">" {blog.content} "</p> */}
-    {blog.content.split('\n').map((paragraph: string, index: number) => (
-      <p key={index} className="text-2xl text-bt-peach text-center w-10">{paragraph}</p>
-    ))}
-    <div className="flex items-center justify-end text-right mt-4 flex-col " >
-      <p className="text-bt-teal ">Written By: {user?.Username}</p>
-      <p className="text-bt-teal ">Published On: {formattedDate}</p>
+      <div className="container mt-12 mx-auto p-4 border-x-4 flex justify-center flex-col items-center border-bt-navy">
+        {blog.content.split('\n').map((paragraph: string, index: number) => (
+          <p key={index} className="text-2xl text-bt-peach text-center max-w-4xl mx-auto">{paragraph}</p>
+        ))}
+        <div className="flex items-center justify-end text-right mt-4 flex-col">
+          <p className="text-bt-teal">Written By: {user?.Username}</p>
+          <p className="text-bt-teal">Published On: {formattedDate}</p>
+        </div>
       </div>
     </div>
-    </div>
   );
+  
 };
 
 export default Page;
