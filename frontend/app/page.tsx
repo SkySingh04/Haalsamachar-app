@@ -4,7 +4,7 @@ import BlogCard from "./components/BlogCard";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
-
+const usersAPI = process.env.NEXT_PUBLIC_USERS_API_URL;
 export default function Home() {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -13,7 +13,7 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://haalsamachar-users.onrender.com/blogs');
+        const response = await fetch(`${usersAPI}/blogs`);
         const data = await response.json();
         setBlogs(data);
       } catch (error) {

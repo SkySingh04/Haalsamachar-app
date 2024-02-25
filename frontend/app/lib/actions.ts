@@ -3,6 +3,8 @@ import { signIn ,  signOut } from '@/auth';
 import { AuthError } from 'next-auth';
 import { redirect } from 'next/navigation';
 import { auth } from '@/auth';
+
+const usersAPI = process.env.NEXT_PUBLIC_USERS_API_URL;
  
 export async function authenticate(
   formData: FormData,
@@ -34,7 +36,7 @@ export async function getAuth() {
 }
 
 export async function createBlogPost(blog: any) {
-  const response = await fetch('https://haalsamachar-users.onrender.com/blogs', {
+  const response = await fetch(`${usersAPI}/blogs`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

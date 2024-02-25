@@ -11,7 +11,7 @@ export const authConfig: NextAuthConfig = {
       const isLoginPage = nextUrl.pathname === '/login';
       const isSignUpPage = nextUrl.pathname === '/signup';
       
-      console.log('isLoggedIn', isLoggedIn);
+      console.log('Am i logged in?', isLoggedIn);
       
       if (isCreatePostPage && !isLoggedIn) {
         return false;

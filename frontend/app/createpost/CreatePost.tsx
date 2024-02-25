@@ -5,6 +5,7 @@ import { auth } from "@/auth"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+const blogsAPI = process.env.NEXT_PUBLIC_BLOGS_API_URL;
 const CreatePost = ({ userId }: { userId: any }) => {
     const [loading, setLoading] = useState(false);
 
@@ -29,7 +30,7 @@ const CreatePost = ({ userId }: { userId: any }) => {
 
         try {
             // Call the API function to create the blog post
-            const response = await fetch('https://haalsamachar-blogs.onrender.com/blogs', {
+            const response = await fetch(`${blogsAPI}/blogs`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -3,6 +3,9 @@ import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header';
 import { usePathname } from 'next/navigation'
 
+const usersAPI = process.env.NEXT_PUBLIC_USERS_API_URL;
+const blogsAPI = process.env.NEXT_PUBLIC_BLOGS_API_URL;
+
 const formatDate = (timestamp: string): string => {
   const date = new Date(timestamp);
   const day = date.getDate();
@@ -11,7 +14,7 @@ const formatDate = (timestamp: string): string => {
   return `${day} ${month} ${year}`;
 };
 const getUserById = async (id: number) => {
-  const response = await fetch(`https://haalsamachar-users.onrender.com/users/${id}`);
+  const response = await fetch(`${usersAPI}/${id}`);
   const data = await response.json();
   return data;
 }
@@ -25,7 +28,7 @@ const Page = () => {
   useEffect(() => {
     const fetchBlog = async () => {
       try {
-        const response = await fetch(`https://haalsamachar-blogs.onrender.com/blogs/${blogid}`);
+        const response = await fetch(`${blogsAPI}/blogs/${blogid}`);
         if (!response.ok) {
           throw new Error('Failed to fetch blog');
         }

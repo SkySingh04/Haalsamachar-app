@@ -4,6 +4,8 @@ import Header from '../components/Header';
 import { useRouter } from 'next/navigation';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+const usersAPI = process.env.NEXT_PUBLIC_USERS_API_URL;
+
 const SignupPage = () => {
   const router = useRouter();
   const [formData, setFormData] = useState({
@@ -21,7 +23,7 @@ const SignupPage = () => {
 
     
     try {
-      const response = await fetch('https://haalsamachar-users.onrender.com/users', {
+      const response = await fetch(`${usersAPI}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -6,6 +6,9 @@ const against = localFont({
   src: "../../public/fonts/Against.ttf",
   variable: "--Against",
 })
+
+const userAPI = process.env.NEXT_PUBLIC_USERS_API_URL;
+
 interface BlogCardProps {
   blog: {
     id : number;
@@ -26,7 +29,7 @@ interface User {
 }
 
 const getUserById = async (id: number) => {
-  const response = await fetch(`https://haalsamachar-users.onrender.com/users/${id}`);
+  const response = await fetch(`${userAPI}/users/${id}`);
   const data = await response.json();
   return data;
 }

@@ -8,6 +8,8 @@ export const useStore = create((set) => ({
     setCurrentUser: (user:any) => set({ currentUser: user }), // Add setCurrentUser function
 }))
 
+const authURL = process.env.NEXT_PUBLIC_AUTH_API_URL;
+
 
 
 type User = {
@@ -25,7 +27,7 @@ export const { auth, signIn, signOut } = NextAuth({
                 username : credentials.username as string,
                 password : credentials.password as string,
             };
-            const response = await fetch('https://haalsamachar-auth.onrender.com/api/auth/login', { 
+            const response = await fetch(`${authURL}/api/auth/login`, { 
                 method: 'POST',
                 body: JSON.stringify(parsedCredentials),
                 headers: { 'Content-Type': 'application/json' }
