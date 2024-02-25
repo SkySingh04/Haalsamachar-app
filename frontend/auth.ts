@@ -1,6 +1,14 @@
 import NextAuth from 'next-auth';
 import { authConfig } from './auth.config';
 import Credentials from 'next-auth/providers/credentials';
+import { create } from 'zustand'
+
+export const useStore = create((set) => ({
+    currentUser: undefined, // Add currentUser property
+    setCurrentUser: (user:any) => set({ currentUser: user }), // Add setCurrentUser function
+}))
+
+
 
 type User = {
     email: string;
@@ -35,6 +43,8 @@ export const { auth, signIn, signOut } = NextAuth({
                     password: credentials.password as string,
                     token : data.token
                 };
+                useStore.setState({currentUser: user});
+                console.log(user);
                 return user;
             }
         }
