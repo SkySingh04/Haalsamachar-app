@@ -19,7 +19,7 @@ export default function LoginForm() {
     try {
       await authenticate(formData); // Authenticate user
       toast.success('Logged in successfully!'); // Show success message
-      router.push('/createpost'); // Redirect to create post page (if authentication is successful
+      // router.push('/createpost'); // Redirect to create post page (if authentication is successful
     } catch (error: any) {
       setErrorMessage(error.message); // Set error message if authentication fails
       toast.error(error.message); // Show error message

@@ -6,11 +6,11 @@ import (
 )
 
 func GetUserByID(userID int) (*models.User, error) {
-	query := "SELECT id, username, email FROM users WHERE id = $1"
+	query := "SELECT id, username, email , password FROM users WHERE id = $1"
 	row := db.QueryRow(query, userID)
 
 	user := &models.User{}
-	err := row.Scan(&user.ID, &user.Username, &user.Email)
+	err := row.Scan(&user.ID, &user.Username, &user.Email, &user.Password)
 	if err != nil {
 		log.Printf("Error scanning user row: %v\n", err)
 		return nil, err
