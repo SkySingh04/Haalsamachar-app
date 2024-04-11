@@ -14,7 +14,7 @@ const formatDate = (timestamp: string): string => {
   return `${day} ${month} ${year}`;
 };
 const getUserById = async (id: number) => {
-  const response = await fetch(`${usersAPI}/${id}`);
+  const response = await fetch(`${usersAPI}/users/${id}`);
   const data = await response.json();
   return data;
 }

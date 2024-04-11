@@ -24,16 +24,16 @@ const SignupPage = () => {
     console.log('formData:', formData);
     e.preventDefault();
     try {
-      // const response = await fetch(`${usersAPI}`, {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify(formData),
-      // });
-      // if (response.ok) {
-      //   const user = await response.json();
-      //   console.log('User created in postgres:', user);
+      const response = await fetch(`${usersAPI}/users`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      if (response.ok) {
+        const user = await response.json();
+        console.log('User created in postgres:', user);
         try{
           const userCredential: any = await createUserWithEmailAndPassword(
             auth,
@@ -52,11 +52,11 @@ const SignupPage = () => {
         }
         toast.success("Sign Up Successful!")
         router.push('/login')
-      // } 
-      // else {
-      //   console.error('Failed to create user');
-      //   toast.error('Failed to SignUp');
-      // }
+      } 
+      else {
+        console.error('Failed to create user');
+        toast.error('Failed to SignUp');
+      }
     } catch (error) {
       console.error('Error:', error);
       toast.error('Failed to SignUp : ' + error);
