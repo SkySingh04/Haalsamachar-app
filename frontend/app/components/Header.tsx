@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import localFont from "@next/font/local";
 import { auth } from "../firebase";
 import { signOut, onAuthStateChanged } from "firebase/auth";
-import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
 
 const against = localFont({
   src: "../../public/fonts/Against.ttf",
@@ -53,6 +54,7 @@ const Header = ({
       }}
     >
       <nav className=" text-bt-peach flex justify-end">
+        <ToastContainer />
         <div className="max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-end h-16">
             <div className="flex items-center">

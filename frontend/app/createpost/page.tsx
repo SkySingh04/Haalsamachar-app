@@ -47,11 +47,8 @@ const CreatePost = () => {
     const title = formData.get("title");
     const subtitle = formData.get("subtitle");
     const image = formData.get("image");
-    // const content = formData.get("content");
     const content = e.target.content.value;
     console.log("content", content);
-    //get the value of content from SimpleMDE
-    // const content = e.target.content.value;
     const userIdNum =  parseInt(userId);
     const blog = {
       userId: userIdNum,
@@ -63,7 +60,6 @@ const CreatePost = () => {
     console.log("blog", blog);
 
     try {
-      // Call the API function to create the blog post
       const response = await fetch(`${blogsAPI}/blogs`, {
         method: "POST",
         headers: {
@@ -142,12 +138,6 @@ const CreatePost = () => {
               id="content"
               className="w-full border border-bt-teal bg-bt-peach text-bt-navy rounded-md px-4 py-2"
             />
-            {/* <textarea
-              id="content"
-              name="content"
-              className="w-full border border-bt-teal bg-bt-peach text-bt-navy rounded-md px-4 py-2 h-32"
-              required
-            /> */}
           </div>
           {loading ? (
             <div className="flex justify-center">
