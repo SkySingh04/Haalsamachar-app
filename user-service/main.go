@@ -29,7 +29,7 @@ func main() {
 	// Define routes
 	r.GET("/", healthCheckHandler)
 	r.GET("/users/:id", getUserByIDHandler)
-	r.GET("/users/username/:email", getUserByEmailHandler)
+	r.GET("/users/email/:email", getUserByEmailHandler)
 	r.GET("/users/username/:username", getUserByUsernameHandler)
 	r.GET("/users/:id/blogs", getUserBlogPostsHandler)
 	r.GET("/users/:id/comments", getUserCommentsHandler)
