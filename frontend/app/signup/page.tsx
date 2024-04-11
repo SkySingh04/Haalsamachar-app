@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import Header from '../components/Header';
 import { useRouter } from 'next/navigation';
 import { ToastContainer, toast } from 'react-toastify';
+import {auth } from '../firebase';
+import {createUserWithEmailAndPassword} from 'firebase/auth';
 import 'react-toastify/dist/ReactToastify.css';
 const usersAPI = process.env.NEXT_PUBLIC_USERS_API_URL;
 
@@ -19,26 +21,42 @@ const SignupPage = () => {
   };
 
   const handleSubmit = async (e : any) => {
+    console.log('formData:', formData);
     e.preventDefault();
-
-    
     try {
-      const response = await fetch(`${usersAPI}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-      if (response.ok) {
-        const user = await response.json();
-        console.log('User created:', user);
+      // const response = await fetch(`${usersAPI}`, {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify(formData),
+      // });
+      // if (response.ok) {
+      //   const user = await response.json();
+      //   console.log('User created in postgres:', user);
+        try{
+          const userCredential: any = await createUserWithEmailAndPassword(
+            auth,
+            formData.email,
+            formData.password
+          ).then((userCredential) => {
+            const user = userCredential.user;
+            console.log('User created in firebase:', user);
+          }
+          );
+        }
+        catch (error) {
+          console.error('Error:', error);
+          toast.error('Failed to SignUp : ' + error);
+          throw error;
+        }
         toast.success("Sign Up Successful!")
         router.push('/login')
-      } else {
-        console.error('Failed to create user');
-        toast.error('Failed to SignUp');
-      }
+      // } 
+      // else {
+      //   console.error('Failed to create user');
+      //   toast.error('Failed to SignUp');
+      // }
     } catch (error) {
       console.error('Error:', error);
       toast.error('Failed to SignUp : ' + error);

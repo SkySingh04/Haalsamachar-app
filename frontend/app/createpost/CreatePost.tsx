@@ -1,17 +1,22 @@
 'use client'
 import React, { useState } from 'react';
 import Header from '../components/Header';
-import { auth } from "@/auth"
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
 const blogsAPI = process.env.NEXT_PUBLIC_BLOGS_API_URL;
+
 const CreatePost = ({ userId }: { userId: any }) => {
     const [loading, setLoading] = useState(false);
+
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         setLoading(true);
+
+
 
         const formData = new FormData(e.target);
         const title = formData.get('title');

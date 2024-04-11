@@ -5,21 +5,42 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useState } from 'react';
 import {useRouter} from 'next/navigation';
+import {auth} from '../firebase';
+import { signInWithEmailAndPassword } from "firebase/auth";
+
 
 export default function LoginForm() {
+  const router = useRouter();
   const [errorMessage, setErrorMessage] = useState(undefined);
   const [loading, setLoading] = useState(false);
-  const { pending } = useFormStatus();
-  const router = useRouter();
+  const [state, setState] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (evt: any) => {
+    const value = evt.target.value;
+    setState({
+      ...state,
+      [evt.target.name]: value,
+    });
+  };
 
   const handleSubmit = async (event: any) => {
     event.preventDefault(); // Prevent default form submission
     setLoading(true); // Set loading state to true
-    const formData = new FormData(event.target); // Get form data
+    const { email, password } = state;
+    console.log('email:', email);
+    console.log('password', password);
     try {
-      await authenticate(formData); // Authenticate user
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
       toast.success('Logged in successfully!'); // Show success message
-      // router.push('/createpost'); // Redirect to create post page (if authentication is successful
+      router.push('/createpost'); // Redirect to create post page (if authentication is successful
     } catch (error: any) {
       setErrorMessage(error.message); // Set error message if authentication fails
       toast.error(error.message); // Show error message
@@ -37,10 +58,11 @@ export default function LoginForm() {
             <div className="relative">
               <input
                 className="peer text-bt-navy block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
-                id="username"
-                name="username"
-                placeholder="Enter your username"
+                id="email"
+                name="email"
+                placeholder="Enter your email"
                 required
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -53,6 +75,7 @@ export default function LoginForm() {
                 name="password"
                 placeholder="Enter password"
                 required
+                onChange={handleChange}
               />
             </div>
           </div>

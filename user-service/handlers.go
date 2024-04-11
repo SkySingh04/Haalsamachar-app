@@ -33,6 +33,21 @@ func getUserByIDHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, user)
 }
 
+func getUserByEmailHandler(c *gin.Context) {
+	// Extract email from request parameters
+	email := c.Param("email")
+
+	// Perform database operation to get user by email
+	user, err := db.GetUserByEmail(email)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch user"})
+		return
+	}
+
+	// Return user data as JSON response
+	c.JSON(http.StatusOK, user)
+}
+
 func getUserByUsernameHandler(c *gin.Context) {
 	// Extract username from request parameters
 	username := c.Param("username")

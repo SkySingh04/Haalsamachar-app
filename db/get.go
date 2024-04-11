@@ -77,6 +77,20 @@ func GetUserByUsername(username string) (*models.User, error) {
 	return user, nil
 }
 
+func GetUserByEmail(email string) (*models.User, error) {
+	query := "SELECT id, username, email , Password FROM users WHERE email = $1"
+	row := db.QueryRow(query, email)
+
+	user := &models.User{}
+	err := row.Scan(&user.ID, &user.Username, &user.Email, &user.Password)
+	if err != nil {
+		log.Printf("Error scanning user row: %v\n", err)
+		return nil, err
+	}
+
+	return user, nil
+}
+
 func GetBlogPostsByUserID(userID int) ([]*models.BlogPost, error) {
 	// Execute SQL query to fetch blog posts by user ID
 	query := "SELECT id, user_id, title, content, subtitle , image created_at FROM blog_posts WHERE user_id = $1"
