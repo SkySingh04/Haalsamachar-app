@@ -7,13 +7,11 @@ require (
 	github.com/gin-contrib/cors v1.5.0
 	github.com/gin-gonic/gin v1.9.1
 	github.com/lib/pq v1.10.9
-	github.com/pact-foundation/pact-go v1.8.0
 )
 
 require (
 	github.com/google/go-cmp v0.5.9 // indirect
-	github.com/hashicorp/go-version v1.6.0 // indirect
-	github.com/hashicorp/logutils v1.0.0 // indirect
+	github.com/kr/text v0.1.0 // indirect
 	github.com/rogpeppe/go-internal v1.9.0 // indirect
 )
 

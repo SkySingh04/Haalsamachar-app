@@ -6,6 +6,9 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import SimpleMDE from "react-simplemde-editor";
+import "easymde/dist/easymde.min.css";
+
 
 
 const blogsAPI = process.env.NEXT_PUBLIC_BLOGS_API_URL;
@@ -44,7 +47,11 @@ const CreatePost = () => {
     const title = formData.get("title");
     const subtitle = formData.get("subtitle");
     const image = formData.get("image");
-    const content = formData.get("content");
+    // const content = formData.get("content");
+    const content = e.target.content.value;
+    console.log("content", content);
+    //get the value of content from SimpleMDE
+    // const content = e.target.content.value;
     const userIdNum =  parseInt(userId);
     const blog = {
       userId: userIdNum,
@@ -131,12 +138,16 @@ const CreatePost = () => {
             <label htmlFor="content" className="block font-semibold">
               Content:
             </label>
-            <textarea
+            <SimpleMDE
+              id="content"
+              className="w-full border border-bt-teal bg-bt-peach text-bt-navy rounded-md px-4 py-2"
+            />
+            {/* <textarea
               id="content"
               name="content"
               className="w-full border border-bt-teal bg-bt-peach text-bt-navy rounded-md px-4 py-2 h-32"
               required
-            />
+            /> */}
           </div>
           {loading ? (
             <div className="flex justify-center">
