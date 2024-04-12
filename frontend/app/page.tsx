@@ -48,7 +48,7 @@ export default function Home() {
         </div>
       )}
       <div className="flex justify-end mx-20 my-4">
-        <Link href="/createpost" className="bg-bt-navy text-bt-peach p-4 w-[150px] rounded hover:bg-bt-teal text-center">Create Post</Link>
+        <Link href={`/createpost/1`} className="bg-bt-navy text-bt-peach p-4 w-[150px] rounded hover:bg-bt-teal text-center">Create Post</Link>
       </div>
     </div>
   );

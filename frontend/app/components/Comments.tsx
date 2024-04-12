@@ -28,7 +28,8 @@ const Comments = ({ blogId }: { blogId: Number }) => {
         <div className="my-4">
           <div className="space-y-4">
             {comments.length === 0 && <p>No comments yet</p>}
-            {comments.map((comment: any) => (
+
+            {comments && comments.map((comment: any) => (
               <div key={comment.id} className="p-4 rounded shadow m-4 border border-bt-navy">
                 <Markdown>{comment.content}</Markdown>
                 <p className="text-gray-500 text-sm mt-2">
