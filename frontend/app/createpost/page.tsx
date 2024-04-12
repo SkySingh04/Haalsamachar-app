@@ -1,4 +1,4 @@
-"use client";
+'use client'
 import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import { auth } from "../firebase";
@@ -6,15 +6,18 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import SimpleMDE from "react-simplemde-editor";
-import "easymde/dist/easymde.min.css";
+// import SimpleMDE from "react-simplemde-editor";
+// import "easymde/dist/easymde.min.css";
+// import  CommentForm from "../components/CommentForm" 
 
+// something is crazy here betwen blog page and create post page
 
 
 const blogsAPI = process.env.NEXT_PUBLIC_BLOGS_API_URL;
 const usersAPI = process.env.NEXT_PUBLIC_USERS_API_URL;
+const isServer = () => typeof window === `undefined`;
 
-const CreatePost = () => {
+const CreatePost = () =>  {
   const [loading, setLoading] = useState(false);
   const [userId, setUserId] = useState("");
   const router = useRouter();
@@ -47,7 +50,8 @@ const CreatePost = () => {
     const title = formData.get("title");
     const subtitle = formData.get("subtitle");
     const image = formData.get("image");
-    const content = e.target.content.value;
+    // const content = e.target.content.value;
+    const content = formData.get("content");
     console.log("content", content);
     const userIdNum =  parseInt(userId);
     const blog = {
@@ -84,7 +88,7 @@ const CreatePost = () => {
     }
   };
 
-  return (
+  return  isServer() ? null : (
     <>
       <Header
         bgImage="/createpost.jpg"
@@ -134,10 +138,20 @@ const CreatePost = () => {
             <label htmlFor="content" className="block font-semibold">
               Content:
             </label>
-            <SimpleMDE
+            {/* <SimpleMDE
               id="content"
               className="w-full border border-bt-teal bg-bt-peach text-bt-navy rounded-md px-4 py-2"
-            />
+            /> */}
+            {/* <CommentForm
+              blogId={1}
+              userId={1}
+            /> */}
+            <textarea
+              id="content"
+              name="content"
+              className="w-full border border-bt-teal bg-bt-peach text-bt-navy rounded-md px-4 py-2"
+              required
+            ></textarea>
           </div>
           {loading ? (
             <div className="flex justify-center">
