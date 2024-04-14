@@ -42,8 +42,8 @@ func CreateCommentForBlogID(userID int, blogID int, Content string) (*models.Com
 
 func CreateUser(Username string, Email string, Password string) (*models.User, error) {
 	// Execute SQL query to create user
-	query := "INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING id, username, email, password"
-	row := db.QueryRow(query, Username, Email, Password)
+	query := "INSERT INTO users (id, username, email, password) VALUES ($1, $2, $3, $4) RETURNING id, username, email, password"
+	row := db.QueryRow(query, generateRandomID(), Username, Email, Password)
 	user := &models.User{}
 	err := row.Scan(&user.ID, &user.Username, &user.Email, &user.Password)
 	if err != nil {
