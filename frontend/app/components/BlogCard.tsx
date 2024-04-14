@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import localFont from "@next/font/local"
 import Link from "next/link";
+import Likes from "./Likes";
 const against = localFont({
   src: "../../public/fonts/Against.ttf",
   variable: "--Against",
@@ -63,6 +64,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
           <p className="text-bt-teal mr-2 text-lg sm:text-l md:text-xl lg:text-2xl">Written By: {user?.Username} | </p>
           <p className="text-bt-sage text-lg sm:text-l md:text-xl lg:text-2xl">{formattedDate}</p>
         </div>
+        <Likes id={blog.id} />
       </div>
     </Link>
   );

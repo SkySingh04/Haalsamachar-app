@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 import Comments from '../../components/Comments'
 import CommentForm from '../../components/CommentForm'
 import Markdown from 'react-markdown'
+import Likes from '@/app/components/Likes';
 
 
 const usersAPI = process.env.NEXT_PUBLIC_USERS_API_URL;
@@ -69,6 +70,7 @@ const Page = () => {
         <div className="flex items-center justify-end text-right mt-4 flex-col">
           <p className="text-bt-teal">Written By: {user?.Username}</p>
           <p className="text-bt-teal">Published On: {formattedDate}</p>
+          <Likes id={blog.id} />
         </div>
         <div className="mt-8">
           <h2 className="text-3xl text-bt-peach">Comments</h2>

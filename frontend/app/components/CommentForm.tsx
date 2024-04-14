@@ -3,6 +3,8 @@ import React from "react";
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import { ToastContainer, toast } from "react-toastify";
+import { setDoc ,  doc } from "firebase/firestore";
+import { db } from "../firebase";
 import "react-toastify/dist/ReactToastify.css";
 const commentsAPI = process.env.NEXT_PUBLIC_COMMENTS_API_URL;
 
@@ -36,6 +38,20 @@ const CommentForm = ({
       return;
     }
     toast.success("Comment added successfully");
+    const data = await response.json();
+    try{
+      const likes = {
+        id: data.id,
+        likes: 0,
+      };
+      const likesDoc = await setDoc(doc(db, "likes", data.id.toString() ), likes);
+      console.log("likesDoc", likesDoc);
+      // toast.success("Likes document created successfully");
+      console.log("Likes document created successfully");
+    } catch (error) {
+      console.error("Error creating likes document:", error);
+      toast.error("Error creating likes document");
+    }
   };
 
   return (

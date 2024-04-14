@@ -39,7 +39,7 @@ export default function Home() {
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-4 justify-center mt-14">
-          {blogs.map((blog, index) => (
+          {blogs && blogs.map((blog, index) => (
             <div key={index}>
               <BlogCard key={index} blog={blog} />
               <hr className="border-b-2 border-bt-navy m-10 w-[600px] mx-auto " />
@@ -48,7 +48,7 @@ export default function Home() {
         </div>
       )}
       <div className="flex justify-end mx-20 my-4">
-        <Link href={`/createpost/1`} className="bg-bt-navy text-bt-peach p-4 w-[150px] rounded hover:bg-bt-teal text-center">Create Post</Link>
+        <Link href={`/createpost/new`} className="bg-bt-navy text-bt-peach p-4 w-[150px] rounded hover:bg-bt-teal text-center">Create Post</Link>
       </div>
     </div>
   );

@@ -1,9 +1,10 @@
 'use client'
 import React, { useState, useEffect } from "react";
 import Header from "../../components/Header";
-import { auth } from "../../firebase";
+import { auth , db } from "../../firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/navigation";
+import {  collection,  doc, setDoc  } from 'firebase/firestore';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SimpleMDE from "react-simplemde-editor";
@@ -75,6 +76,25 @@ const CreatePost = () =>  {
       toast.success("Post created successfully");
       // Clear the form inputs
       e.target.reset();
+      e.target.content.value = ""
+      //create a likes document in the likes collection for the new blog post in firebase
+      try{
+      const likes = {
+        id: data.id,
+        likes: 0,
+      };
+      const likesDoc = await setDoc(doc(db, "likes", data.id.toString() ), likes);
+      // const likesDoc = await addDoc(likesCollection, likes );
+      console.log("likesDoc", likesDoc);
+      // toast.success("Likes document created successfully");
+      console.log("Likes document created successfully");
+    } catch (error) {
+      console.error("Error creating likes document:", error);
+      toast.error("Error creating likes document");
+    }
+      
+
+
     } catch (error) {
       console.error("Error creating blog post:", error);
       toast.error("Error creating blog post");
