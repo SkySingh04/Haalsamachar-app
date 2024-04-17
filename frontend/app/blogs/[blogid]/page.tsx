@@ -9,6 +9,7 @@ import Likes from '@/app/components/Likes';
 import DeleteDialogueBox from "../../components/DeleteDialogueBox";
 import { auth } from "../../firebase";
 import {  onAuthStateChanged } from "firebase/auth";
+import SpotifyCard from '@/app/components/SpotifyCard';
 
 const usersAPI = process.env.NEXT_PUBLIC_USERS_API_URL;
 const blogsAPI = process.env.NEXT_PUBLIC_BLOGS_API_URL;
@@ -81,6 +82,7 @@ const Page = () => {
           throw new Error('Failed to fetch blog');
         }
         const data = await response.json();
+        console.log("Blog data", data)
         setBlog(data);
         setUserId(data.user_id);
         const user = await getUserById(data.user_id);
@@ -133,7 +135,7 @@ const Page = () => {
             )}
           </div>
         </div>
-        
+        {blog.spotifyLink && <SpotifyCard trackLink={blog.spotifyLink} />}
         <div className="mt-8">
           <h2 className="text-3xl text-bt-peach">Comments</h2>
           <Comments blogId={blog.id} isVisibleDeleteButton={isVisibleDeleteButton} isVisibleLikes={isVisibleLikes} loggedInUserId={loggedInUserId} />
