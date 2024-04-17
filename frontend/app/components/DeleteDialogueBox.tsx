@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from 'next/navigation';
 
 interface DeleteDialogueBoxProps {
-    blogId: string;
+    blogId?: string;
     commentId?: string;
     userId: string;
     isComment?: boolean;
@@ -21,6 +24,7 @@ const DeleteDialogueBox: React.FC<DeleteDialogueBoxProps> = ({
     onClose, // Receive onClose prop
 }) => {
     const [canDelete, setCanDelete] = useState(false);
+    const router = useRouter();
 
     const handleDelete = () => {
         console.log("Delete authorized by userId" + userId);
@@ -30,19 +34,27 @@ const DeleteDialogueBox: React.FC<DeleteDialogueBoxProps> = ({
             })
                 .then(() => {
                     onClose(); // Call onClose function to close the dialogue box
+                    toast.success("Blog deleted successfully");
+                    router.push("/");
                 })
                 .catch((error) => {
                     console.error(error);
+                    toast.error("Failed to delete blog");
+                    onClose();
                 });
         } else if (isComment) {
-            fetch(`${commentsAPI}/blogs/${blogId}/comments/${commentId}`, {
+            fetch(`${commentsAPI}/comments/${commentId}`, {
                 method: "DELETE",
             })
                 .then(() => {
                     onClose(); // Call onClose function to close the dialogue box
+                    toast.success("Comment deleted successfully");
+                    router.refresh()
                 })
                 .catch((error) => {
                     console.error(error);
+                    toast.error("Failed to delete comment");
+                    onClose();
                 });
         }
     };
@@ -63,7 +75,9 @@ const DeleteDialogueBox: React.FC<DeleteDialogueBoxProps> = ({
                     }
                     const data = await response.json();
                     console.log(data);
-                    if (data.user_id === userId) {
+                    console.log("data.user_id" , data.user_id);
+                    console.log("userId" , userId);
+                    if (data.user_id == userId) {
                         setCanDelete(true);
                         console.log("User is author of blog")
                         return;
@@ -81,7 +95,7 @@ const DeleteDialogueBox: React.FC<DeleteDialogueBoxProps> = ({
                     const data = await response.json();
                     //filter out the comment with the commentId
                     const comment = data.filter((comment: any) => comment.id === commentId);
-                    if (comment[0].user_id === userId) {
+                    if (comment[0].user_id == userId) {
                         setCanDelete(true);
                         console.log("User is author of comment")
                         return;
@@ -97,6 +111,7 @@ const DeleteDialogueBox: React.FC<DeleteDialogueBoxProps> = ({
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50  ">
+            <ToastContainer />
             <div className="bg-bt-navy p-6 rounded-lg w-[500px]">
                 <div className="flex justify-end">
                     <button className="text-gray-500 hover:text-gray-700" onClick={onClose}>

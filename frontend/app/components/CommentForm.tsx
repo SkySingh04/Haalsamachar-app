@@ -6,6 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { setDoc ,  doc } from "firebase/firestore";
 import { db } from "../firebase";
 import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/navigation";
 const commentsAPI = process.env.NEXT_PUBLIC_COMMENTS_API_URL;
 
 const CommentForm = ({
@@ -15,12 +16,13 @@ const CommentForm = ({
   blogId: Number;
   userId: Number;
 }) => {
+  const router = useRouter();
   const handleSubmit = async (e : any ) => {
     e.preventDefault();
     const content = e.target.content.value;
     const comment = {
-      userId: blogId,
-      blogId: userId,
+      userId: Number(blogId),
+      blogId: Number(userId),
       content: content,
     }; //done on purpose because the API has typo 
     console.log("comment", comment);
@@ -48,6 +50,7 @@ const CommentForm = ({
       console.log("likesDoc", likesDoc);
       // toast.success("Likes document created successfully");
       console.log("Likes document created successfully");
+      router.refresh();
     } catch (error) {
       console.error("Error creating likes document:", error);
       toast.error("Error creating likes document");

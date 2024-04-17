@@ -88,6 +88,7 @@ const CreatePost = () =>  {
       console.log("likesDoc", likesDoc);
       // toast.success("Likes document created successfully");
       console.log("Likes document created successfully");
+      router.push(`/blogs/${data.id}`);
     } catch (error) {
       console.error("Error creating likes document:", error);
       toast.error("Error creating likes document");

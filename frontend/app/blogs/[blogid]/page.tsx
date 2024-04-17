@@ -30,6 +30,7 @@ const Page = () => {
   const [isVisibleDeleteButton, setIsVisibleDeleteButton] = useState(true);
   const [isVisibleCommentsSection, setIsVisibleCommentsSection] = useState(true);
   const [loggedInUserId, setLoggedInUserId] = useState<any>(null);
+  
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
       if (!user) {
@@ -42,7 +43,6 @@ const Page = () => {
       console.log("User logged in");
       try{
       const userEmail = user.email;
-      console.log("Email from firebase is " + userEmail)
         const userId = await fetch(`${usersAPI}/users/email/${userEmail}`, {
           method: "GET",
           headers: {
@@ -114,24 +114,36 @@ const Page = () => {
       <div className="container mt-12 mx-auto p-4 px-10 border-x-4 flex justify-center flex-col items-center border-bt-navy">
         <Markdown className="text-center text-2xl ">{blog.content}</Markdown>
         {isVisible && <DeleteDialogueBox
-            blogId = {blog.id}
-            userId= {loggedInUserId} 
+            blogId={blog.id}
+            userId={loggedInUserId}
             isBlog={true}
             onClose={() => setIsVisible(false)}
            />}
         <div className="flex items-center justify-end text-right mt-4 flex-col">
           <p className="text-bt-teal">Written By: {user?.Username}</p>
           <p className="text-bt-teal">Published On: {formattedDate}</p>
-          {isVisibleLikes && <Likes id={blog.id} />}
-          {isVisibleDeleteButton && <button onClick={openDelete} className="bg-bt-sage text-black p-2 rounded mt-2">Delete</button>}
-          
+          <div className="flex items-center">
+            {isVisibleLikes && <Likes id={blog.id} />}
+            {isVisibleDeleteButton && (
+              <svg
+                onClick={openDelete}
+                className="w-12 h-12 text-red-400 cursor-pointer ml-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            )}
+          </div>
         </div>
         
         <div className="mt-8">
           <h2 className="text-3xl text-bt-peach">Comments</h2>
-          <Comments blogId={blog.id} />
+          <Comments blogId={blog.id} isVisibleDeleteButton={isVisibleDeleteButton} isVisibleLikes={isVisibleLikes} loggedInUserId={loggedInUserId} />
           {isVisibleCommentsSection && <CommentForm blogId={blog.id} userId={loggedInUserId} />}
-          </div>
+        </div>
       </div>
     </div>
   );
