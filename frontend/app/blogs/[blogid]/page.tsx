@@ -34,13 +34,12 @@ const Page = () => {
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
       if (!user) {
-        console.log("User not logged in");
         setIsVisibleLikes(false);
         setIsVisibleDeleteButton(false);
         setIsVisibleCommentsSection(false);
       }
      else{
-      console.log("User logged in");
+      console.log("User logged in successfully");
       try{
       const userEmail = user.email;
         const userId = await fetch(`${usersAPI}/users/email/${userEmail}`, {
@@ -50,9 +49,7 @@ const Page = () => {
           },
         });
         const data = await userId.json();
-        console.log("data", data);
         const userid = data.ID;
-        console.log("logged in userid", userid);
         setLoggedInUserId(userid);
       
       setIsVisibleLikes(true);
@@ -67,7 +64,6 @@ const Page = () => {
   
   const pathname = usePathname();
   const blogid = pathname.split('/').pop();
-  console.log(pathname);
   const [blog, setBlog] = useState<any>(null);
   const [user, setUser] = useState<any>(null);
   const [userId, setUserId] = useState<any>(null);
@@ -85,7 +81,6 @@ const Page = () => {
           throw new Error('Failed to fetch blog');
         }
         const data = await response.json();
-        console.log(data);
         setBlog(data);
         setUserId(data.user_id);
         const user = await getUserById(data.user_id);

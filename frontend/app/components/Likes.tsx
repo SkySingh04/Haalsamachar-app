@@ -25,7 +25,6 @@ const Likes: React.FC<LikesProps> = ({ id }) => {
           likes: 0,
         };
         const likesDoc = await setDoc(doc(db, "likes", id.toString()), likes);
-        console.log("likesDoc", likesDoc);
       }
     };
     fetchLikes();

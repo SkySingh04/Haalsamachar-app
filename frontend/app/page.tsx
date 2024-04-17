@@ -9,8 +9,6 @@ const usersAPI = process.env.NEXT_PUBLIC_USERS_API_URL;
 export default function Home() {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
-  
-
   useEffect(() => {
     const fetchData = async () => {
       try {

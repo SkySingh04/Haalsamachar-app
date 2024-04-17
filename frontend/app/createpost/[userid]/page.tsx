@@ -30,7 +30,6 @@ const CreatePost = () =>  {
           },
         });
         const data = await userId.json();
-        console.log("data", data);
         const userid = data.ID;
         setUserId(userid);
       } else {
@@ -48,7 +47,6 @@ const CreatePost = () =>  {
     const subtitle = formData.get("subtitle");
     const image = formData.get("image");
     const content = e.target.content.value;
-    console.log("content", content);
     const userIdNum =  parseInt(userId);
     const blog = {
       userId: userIdNum,
@@ -57,7 +55,6 @@ const CreatePost = () =>  {
       subtitle: subtitle,
       image: image,
     };
-    console.log("blog", blog);
 
     try {
       const response = await fetch(`${blogsAPI}/blogs`, {
@@ -69,10 +66,8 @@ const CreatePost = () =>  {
       });
       const data = await response.json();
       if (!response.ok) {
-        console.log(data);
         throw new Error(data.message);
       }
-      console.log("data", data);
       toast.success("Post created successfully");
       // Clear the form inputs
       e.target.reset();
@@ -84,9 +79,6 @@ const CreatePost = () =>  {
         likes: 0,
       };
       const likesDoc = await setDoc(doc(db, "likes", data.id.toString() ), likes);
-      // const likesDoc = await addDoc(likesCollection, likes );
-      console.log("likesDoc", likesDoc);
-      // toast.success("Likes document created successfully");
       console.log("Likes document created successfully");
       router.push(`/blogs/${data.id}`);
     } catch (error) {

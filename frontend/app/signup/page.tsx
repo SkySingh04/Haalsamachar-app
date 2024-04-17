@@ -21,7 +21,6 @@ const SignupPage = () => {
   };
 
   const handleSubmit = async (e : any) => {
-    console.log('formData:', formData);
     e.preventDefault();
     try {
       const response = await fetch(`${usersAPI}/users`, {
@@ -33,7 +32,7 @@ const SignupPage = () => {
       });
       if (response.ok) {
         const user = await response.json();
-        console.log('User created in postgres:', user);
+        console.log('User created in postgres');
         try{
           const userCredential: any = await createUserWithEmailAndPassword(
             auth,
@@ -41,7 +40,7 @@ const SignupPage = () => {
             formData.password
           ).then((userCredential) => {
             const user = userCredential.user;
-            console.log('User created in firebase:', user);
+            console.log('User created in firebase');
           }
           );
         }

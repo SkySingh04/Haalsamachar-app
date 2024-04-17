@@ -25,7 +25,6 @@ const CommentForm = ({
       blogId: Number(userId),
       content: content,
     }; //done on purpose because the API has typo 
-    console.log("comment", comment);
     const response = await fetch(`${commentsAPI}/comments`,
       {
         method: "POST",
@@ -47,7 +46,6 @@ const CommentForm = ({
         likes: 0,
       };
       const likesDoc = await setDoc(doc(db, "likes", data.id.toString() ), likes);
-      console.log("likesDoc", likesDoc);
       // toast.success("Likes document created successfully");
       console.log("Likes document created successfully");
       router.refresh();

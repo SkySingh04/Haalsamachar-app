@@ -35,7 +35,6 @@ const Comments = ({
         throw new Error("Failed to fetch comments");
       }
       const data = await response.json();
-      console.log("Comments", data);
       setComments(data);
       setLoading(false);
     } catch (error) {

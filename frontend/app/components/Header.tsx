@@ -35,7 +35,6 @@ const Header = ({
     signOut(auth)
       .then(() => {
         toast.success("Logged out successfully!");
-        console.log("Logged out successfully!");
         setIsLoggedIn(false);
       })
       .catch((error) => {

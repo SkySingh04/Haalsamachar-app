@@ -77,9 +77,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
           },
         });
         const data = await userId.json();
-        console.log("data", data);
         const userid = data.ID;
-        console.log("logged in userid", userid);
         setLoggedInUserId(userid);
       
       setIsVisibleLikes(true);

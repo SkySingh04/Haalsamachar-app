@@ -28,8 +28,6 @@ export default function LoginForm() {
     event.preventDefault(); // Prevent default form submission
     setLoading(true); // Set loading state to true
     const { email, password } = state;
-    console.log('email:', email);
-    console.log('password', password);
     try {
       const userCredential = await signInWithEmailAndPassword(
         auth,

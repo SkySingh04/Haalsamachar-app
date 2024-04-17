@@ -27,7 +27,7 @@ const DeleteDialogueBox: React.FC<DeleteDialogueBoxProps> = ({
     const router = useRouter();
 
     const handleDelete = () => {
-        console.log("Delete authorized by userId" + userId);
+        console.log("Delete authorized");
         if (isBlog) {
             fetch(`${blogsAPI}/blogs/${blogId}`, {
                 method: "DELETE",
@@ -61,10 +61,9 @@ const DeleteDialogueBox: React.FC<DeleteDialogueBoxProps> = ({
 
     useEffect(() => {
         const checkIfUserCanDelete = async () => {
-            console.log(userId);
             if (userId === "525993") {
                 setCanDelete(true);
-                console.log("Admin")
+                console.log("Admin user")
                 return;
             }
             if (isBlog) {
@@ -74,9 +73,6 @@ const DeleteDialogueBox: React.FC<DeleteDialogueBoxProps> = ({
                         throw new Error("Failed to fetch blog");
                     }
                     const data = await response.json();
-                    console.log(data);
-                    console.log("data.user_id" , data.user_id);
-                    console.log("userId" , userId);
                     if (data.user_id == userId) {
                         setCanDelete(true);
                         console.log("User is author of blog")
