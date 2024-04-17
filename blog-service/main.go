@@ -23,7 +23,7 @@ func main() {
 	// Define routes
 	r.GET("/", healthCheckHandler)
 	r.GET("/blogs/:blogID", getblogHandler)
-	r.DELETE("/:id/blogs/:blogID", deleteblogHandler)
+	r.DELETE("/blogs/:blogID", deleteblogHandler)
 	r.POST("/blogs", createblogHandler)
 	r.PUT("/blogs", updateblogHandler)
 	// Run server

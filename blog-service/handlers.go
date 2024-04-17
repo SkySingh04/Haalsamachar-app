@@ -68,10 +68,9 @@ func updateblogHandler(c *gin.Context) {
 
 func deleteblogHandler(c *gin.Context) {
 	// Implement blog deletion logic
-	var userID = c.Param("id")
 	var blogID = c.Param("blogID")
 
-	err := db.DeleteBlogForUserID(userID, blogID)
+	err := db.DeleteBlogForBlogID(blogID)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to delete blog"})
 		return

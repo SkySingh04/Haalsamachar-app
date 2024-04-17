@@ -35,6 +35,7 @@ const getUserById = async (id: number) => {
   return data;
 }
 
+
 const formatDate = (timestamp: string): string => {
   const date = new Date(timestamp);
   const day = date.getDate();
@@ -44,8 +45,9 @@ const formatDate = (timestamp: string): string => {
 };
 
 const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
-  const [user, setUser] = useState<User | null>(null);
 
+  const [user, setUser] = useState<User | null>(null);
+  
   React.useEffect(() => {
     const fetchData = async () => {
       const user = await getUserById(blog.user_id);
@@ -63,6 +65,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
         <div className="flex items-center mt-4">
           <p className="text-bt-teal mr-2 text-lg sm:text-l md:text-xl lg:text-2xl">Written By: {user?.Username} | </p>
           <p className="text-bt-sage text-lg sm:text-l md:text-xl lg:text-2xl">{formattedDate}</p>
+          
         </div>
         <Likes id={blog.id} />
       </div>
