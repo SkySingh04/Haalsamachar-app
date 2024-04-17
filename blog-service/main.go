@@ -27,5 +27,7 @@ func main() {
 	r.POST("/blogs", createblogHandler)
 	r.PUT("/blogs", updateblogHandler)
 	// Run server
-	r.Run(":8082")
+	if err := r.Run(":8082"); err != nil {
+		panic(err)
+	}
 }

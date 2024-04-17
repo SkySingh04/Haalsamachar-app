@@ -14,12 +14,12 @@ func generateRandomID() int {
 	return rand.Intn(max-min+1) + min
 }
 
-func CreateBlogForUserID(userID int, Title string, Content string, Subtitle string, Image string) (*models.BlogPost, error) {
+func CreateBlogForUserID(userID int, Title string, Content string, Subtitle string, Image string ,  SpotifyLink string) (*models.BlogPost, error) {
 	// Execute SQL query to create blog for user ID
-	query := "INSERT INTO blog_posts (id, user_id, title, content, created_at, subtitle, image) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id, user_id, title, content, created_at, subtitle, image"
+	query := "INSERT INTO blog_posts (id, user_id, title, content, created_at, subtitle, image , spotify_link) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id, user_id, title, content, created_at, subtitle, image,spotify_link"
 	row := db.QueryRow(query, generateRandomID(), userID, Title, Content, time.Now(), Subtitle, Image)
 	blog := &models.BlogPost{}
-	err := row.Scan(&blog.ID, &blog.UserID, &blog.Title, &blog.Content, &blog.CreatedAt, &blog.Subtitle, &blog.Image)
+	err := row.Scan(&blog.ID, &blog.UserID, &blog.Title, &blog.Content, &blog.CreatedAt, &blog.Subtitle, &blog.Image , &blog.SpotifyLink)
 	if err != nil {
 		log.Printf("Error scanning blog row: %v\n", err)
 		return nil, err

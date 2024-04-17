@@ -46,6 +46,7 @@ const CreatePost = () =>  {
     const title = formData.get("title");
     const subtitle = formData.get("subtitle");
     const image = formData.get("image");
+    const spotify = formData.get("spotify");
     const content = e.target.content.value;
     const userIdNum =  parseInt(userId);
     const blog = {
@@ -54,6 +55,7 @@ const CreatePost = () =>  {
       content: content,
       subtitle: subtitle,
       image: image,
+      spotifyLink: spotify,
     };
 
     try {
@@ -140,6 +142,18 @@ const CreatePost = () =>  {
               name="image"
               className="w-full border border-bt-teal bg-bt-peach text-bt-navy rounded-md px-4 py-2"
               required
+            />
+          </div>
+          <div>
+            <label htmlFor="spotify" className="block font-semibold">
+              Spotify URL:
+            </label>
+            <input
+              type="text"
+              id="spotify"
+              name="spotify"
+              placeholder="ex: https://open.spotify.com/track/5bgwqaRSS3M8WHWruHgSL5"
+              className="w-full border border-bt-teal bg-bt-peach text-bt-navy rounded-md px-4 py-2"
             />
           </div>
           <div>

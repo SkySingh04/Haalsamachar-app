@@ -12,7 +12,8 @@ func CreateBlogPostsTable() {
 		content TEXT NOT NULL,
 		created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 		subtitle TEXT NOT NULL,
-		image TEXT
+		image TEXT,
+		spotify_link TEXT
 	);	
     `
 
