@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Dosis } from "next/font/google";
 import "./globals.css";
 import Footer from "./components/Footer";
+import { EdgeStoreProvider } from "./lib/edgestore";
 const dosis = Dosis({
   subsets: ["latin"],
   weight: "600"
@@ -21,7 +22,9 @@ export default function RootLayout({
     <html lang="en">
       
       <body className={dosis.className}>
+      <EdgeStoreProvider>
         {children}
+        </EdgeStoreProvider>  
         <Footer />
         </body>
         

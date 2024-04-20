@@ -4,11 +4,13 @@ import Header from "../../components/Header";
 import { auth , db } from "../../firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/navigation";
-import {  collection,  doc, setDoc  } from 'firebase/firestore';
+import {  doc, setDoc  } from 'firebase/firestore';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
+import { SingleImageDropzone } from "@/app/components/SingleImageDropzone";
+import { useEdgeStore } from "@/app/lib/edgestore";
 
 
 const blogsAPI = process.env.NEXT_PUBLIC_BLOGS_API_URL;
@@ -18,6 +20,11 @@ const CreatePost = () =>  {
   const [loading, setLoading] = useState(false);
   const [userId, setUserId] = useState("");
   const router = useRouter();
+  const [file, setFile] = useState<File>();
+  const { edgestore } = useEdgeStore();
+  const [progress, setProgress] = useState(0);
+  const [imageUrl, setImageUrl] = useState("");
+
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
@@ -156,6 +163,31 @@ const CreatePost = () =>  {
               className="w-full border border-bt-teal bg-bt-peach text-bt-navy rounded-md px-4 py-2"
             />
           </div>
+          <SingleImageDropzone
+        width={700} 
+        height={200}
+        value={file}
+        onChange={(file : any) => {
+          setFile(file);
+        }}
+      />
+      <button
+                    className="bg-bt-teal text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300"
+        onClick={async () => {
+          if (file) {
+            const res = await edgestore.publicFiles.upload({
+              file,
+              onProgressChange: (progress : any) => {
+                setProgress(progress)
+              },
+            });
+            setImageUrl(res.url);
+          }
+        }}
+      >
+        Upload
+      </button>
+      
           <div>
             <label htmlFor="content" className="block font-semibold">
               Content:
@@ -172,7 +204,7 @@ const CreatePost = () =>  {
           ) : (
             <button
               type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300"
+              className="bg-bt-teal text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300"
             >
               Create Post
             </button>
