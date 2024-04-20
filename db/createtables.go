@@ -14,6 +14,7 @@ func CreateBlogPostsTable() {
 		subtitle TEXT NOT NULL,
 		image TEXT,
 		spotify_link TEXT
+		uploaded_image_link TEXT
 	);	
     `
 

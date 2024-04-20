@@ -16,6 +16,7 @@ type BlogPost struct {
 	Subtitle  string `json:"subtitle"`
 	Image     string `json:"image"`
 	SpotifyLink string `json:"spotifyLink"`
+	UploadedImageLink string `json:"uploadedImageLink"`
 }
 
 type Comment struct {
@@ -33,6 +34,8 @@ type BlogCreateRequest struct {
 	Subtitle string `json:"subtitle"`
 	Image    string `json:"image"`
 	SpotifyLink string `json:"spotifyLink"`
+	UploadedImageLink string `json:"uploadedImageLink"`
+	
 }
 
 type BlogUpdateRequest struct {
@@ -43,6 +46,7 @@ type BlogUpdateRequest struct {
 	Subtitle string `json:"subtitle"`
 	Image    string `json:"image"`
 	SpotifyLink string `json:"spotifyLink"`
+	UploadedImageLink string `json:"uploadedImageLink"`
 }
 
 type CommentCreateRequest struct {

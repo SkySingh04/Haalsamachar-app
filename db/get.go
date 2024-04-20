@@ -43,7 +43,7 @@ func GetAllUsers() ([]*models.User, error) {
 
 func GetAllBlogPosts() ([]*models.BlogPost, error) {
 	// Execute SQL query to fetch all blog posts
-	query := "SELECT id, user_id, title, content, created_at, subtitle, image FROM blog_posts"
+	query := "SELECT id, user_id, title, content, created_at, subtitle, image ,  spotify_link , uploaded_image_link  FROM blog_posts"
 	rows, err := db.Query(query)
 	if err != nil {
 		log.Printf("Error executing query: %v\n", err)
@@ -53,7 +53,7 @@ func GetAllBlogPosts() ([]*models.BlogPost, error) {
 	blogsSlice := []*models.BlogPost{}
 	for rows.Next() {
 		blog := &models.BlogPost{}
-		err := rows.Scan(&blog.ID, &blog.UserID, &blog.Title, &blog.Content, &blog.CreatedAt, &blog.Subtitle, &blog.Image)
+		err := rows.Scan(&blog.ID, &blog.UserID, &blog.Title, &blog.Content, &blog.CreatedAt, &blog.Subtitle, &blog.Image , &blog.SpotifyLink , &blog.UploadedImageLink)
 		if err != nil {
 			log.Printf("Error scanning blog row: %v\n", err)
 			return nil, err
@@ -93,7 +93,7 @@ func GetUserByEmail(email string) (*models.User, error) {
 
 func GetBlogPostsByUserID(userID int) ([]*models.BlogPost, error) {
 	// Execute SQL query to fetch blog posts by user ID
-	query := "SELECT id, user_id, title, content, subtitle , image , created_at , spotify_link FROM blog_posts WHERE user_id = $1"
+	query := "SELECT id, user_id, title, content, subtitle , image , created_at , spotify_link , uploaded_image_link  FROM blog_posts WHERE user_id = $1"
 	rows, err := db.Query(query, userID)
 	if err != nil {
 		log.Printf("Error executing query: %v\n", err)
@@ -103,7 +103,7 @@ func GetBlogPostsByUserID(userID int) ([]*models.BlogPost, error) {
 	blogsSlice := []*models.BlogPost{}
 	for rows.Next() {
 		blog := &models.BlogPost{}
-		err := rows.Scan(&blog.ID, &blog.UserID, &blog.Title, &blog.Content, &blog.CreatedAt , &blog.Subtitle , &blog.Image , &blog.SpotifyLink)
+		err := rows.Scan(&blog.ID, &blog.UserID, &blog.Title, &blog.Content, &blog.CreatedAt , &blog.Subtitle , &blog.Image , &blog.SpotifyLink , &blog.UploadedImageLink)
 		if err != nil {
 			log.Printf("Error scanning blog row: %v\n", err)
 			return nil, err
@@ -137,10 +137,10 @@ func GetCommentsByUserID(userID string) ([]*models.Comment, error) {
 
 func GetBlogForBlogID(blogID string) (*models.BlogPost, error) {
 	// Implement blog retrieval logic
-	query := "SELECT id, user_id, title, content, subtitle , image , created_at , spotify_link FROM blog_posts WHERE id = $1"
+	query := "SELECT id, user_id, title, content, subtitle , image , created_at , spotify_link , uploaded_image_link FROM blog_posts WHERE id = $1"
 	row := db.QueryRow(query, blogID)
 	blog := &models.BlogPost{}
-	err := row.Scan(&blog.ID, &blog.UserID, &blog.Title, &blog.Content, &blog.Subtitle, &blog.Image, &blog.CreatedAt , &blog.SpotifyLink)
+	err := row.Scan(&blog.ID, &blog.UserID, &blog.Title, &blog.Content, &blog.Subtitle, &blog.Image, &blog.CreatedAt , &blog.SpotifyLink , &blog.UploadedImageLink)
 	if err != nil {
 		log.Printf("Error scanning blog row: %v\n", err)
 		return nil, err

@@ -63,6 +63,7 @@ const CreatePost = () =>  {
       subtitle: subtitle,
       image: image,
       spotifyLink: spotify,
+      uploadedImageUrl : imageUrl,
     };
 
     try {
@@ -172,8 +173,9 @@ const CreatePost = () =>  {
         }}
       />
       <button
-                    className="bg-bt-teal text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300"
-        onClick={async () => {
+                    className="bg-bt-teal text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300 disabled:bg-gray-600 disabled:cursor-not-allowed"
+                  disabled={progress === 100}
+                    onClick={async () => {
           if (file) {
             const res = await edgestore.publicFiles.upload({
               file,
@@ -181,6 +183,8 @@ const CreatePost = () =>  {
                 setProgress(progress)
               },
             });
+            toast.success("Image uploaded successfully")
+            console.log("Image url" + res.url )
             setImageUrl(res.url);
           }
         }}
