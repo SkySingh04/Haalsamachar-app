@@ -116,7 +116,7 @@ const Page = () => {
             isBlog={true}
             onClose={() => setIsVisible(false)}
            />}
-           <img src={blog.uploadedImageUrl} alt={blog.title} width={500} height={500} />
+           <img src={blog.uploadedImageLink} alt={blog.title} width={500} height={500} className='m-8 transform scale-100 hover:scale-110 transition duration-300 ease-in-out'  />
         <div className="flex items-center justify-end text-right mt-4 flex-col">
           <p className="text-bt-teal">Written By: {user?.Username}</p>
           <p className="text-bt-teal">Published On: {formattedDate}</p>

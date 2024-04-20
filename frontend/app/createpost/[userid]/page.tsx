@@ -63,7 +63,7 @@ const CreatePost = () =>  {
       subtitle: subtitle,
       image: image,
       spotifyLink: spotify,
-      uploadedImageUrl : imageUrl,
+      uploadedImageLink : imageUrl,
     };
 
     try {
@@ -173,6 +173,7 @@ const CreatePost = () =>  {
         }}
       />
       <button
+      type="button"
                     className="bg-bt-teal text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300 disabled:bg-gray-600 disabled:cursor-not-allowed"
                   disabled={progress === 100}
                     onClick={async () => {
