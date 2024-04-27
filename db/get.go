@@ -169,3 +169,16 @@ func GetCommentsByBlogID(BlogId string) ([]*models.Comment, error) {
 	}
 	return commentsSlice, nil
 }
+
+func GetCommentForCommentID(commentID string) (*models.Comment, error) {
+	// Implement comment retrieval logic
+	query := "SELECT id, user_id, blog_id, content, created_at FROM comments WHERE id = $1"
+	row := db.QueryRow(query, commentID)
+	comment := &models.Comment{}
+	err := row.Scan(&comment.ID, &comment.UserID, &comment.BlogID, &comment.Content, &comment.CreatedAt)
+	if err != nil {
+		log.Printf("Error scanning comment row: %v\n", err)
+		return nil, err
+	}
+	return comment, nil
+}

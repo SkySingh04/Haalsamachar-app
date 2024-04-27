@@ -1,0 +1,95 @@
+type User {
+  ID: ID!
+  Username: String!
+  Email: String!
+  Password: String!
+}
+
+type BlogPost {
+  ID: ID!
+  UserID: ID!
+  Title: String!
+  Content: String!
+  CreatedAt: String!
+  Subtitle: String!
+  Image: String!
+  SpotifyLink: String!
+  UploadedImageLink: String!
+}
+
+type Comment {
+  ID: ID!
+  UserID: ID!
+  BlogID: ID!
+  Content: String!
+  CreatedAt: String!
+}
+
+type BlogCreateRequest {
+  UserID: ID!
+  Title: String!
+  Content: String!
+  Subtitle: String!
+  Image: String!
+  SpotifyLink: String!
+  UploadedImageLink: String!
+}
+
+type BlogUpdateRequest {
+  UserID: ID!
+  BlogID: ID!
+  Title: String!
+  Content: String!
+  Subtitle: String!
+  Image: String!
+  SpotifyLink: String!
+  UploadedImageLink: String!
+}
+
+type CommentCreateRequest {
+  UserID: ID!
+  BlogID: ID!
+  Content: String!
+}
+
+type CommentUpdateRequest {
+  BlogId: ID!
+  CommentID: ID!
+  Content: String!
+}
+
+type LoginRequest {
+  Username: String!
+  Password: String!
+}
+
+type LoginResponse {
+  Token: String!
+}
+
+type Query {
+  # Define your queries here
+  users: [User]
+  user(UserID: ID!): User
+  userByUsername(Username: String!): User
+  userByEmail(Email: String!): User
+  blogPosts: [BlogPost]
+  blogPost(BlogID: ID!): BlogPost
+  blogPostsByUser(UserID: ID!): [BlogPost]
+  comments(BlogID:ID!): [Comment]
+  commentsByUser(UserID: ID!): [Comment]
+  comment(CommentID: ID!): Comment
+}
+
+type Mutation {
+
+  # Define your mutations here
+  createUser(Username: String!, Email: String!, Password: String!): User
+  createBlogPost(UserID: ID!, Title: String!, Content: String!, Subtitle: String!, Image: String!, SpotifyLink: String!, UploadedImageLink: String!): BlogPost
+  createComment(UserID: ID!, BlogID: ID!, Content: String!): Comment
+  updateBlogPost(UserID: ID!, BlogID: ID!, Title: String, Content: String, Subtitle: String, Image: String, SpotifyLink: String, UploadedImageLink: String): BlogPost
+  updateComment( BlogID: ID!, CommentID: ID!, Content: String): Comment
+  deleteBlogPost(BlogID: ID!): Boolean
+  deleteComment( CommentID: ID!) : Boolean
+  
+}
