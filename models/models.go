@@ -8,15 +8,15 @@ type User struct {
 }
 
 type BlogPost struct {
-	ID        int    `json:"id"`
-	UserID    int    `json:"user_id"`
-	Title     string `json:"title"`
-	Content   string `json:"content"`
-	CreatedAt string `json:"created_at"`
-	Subtitle  string `json:"subtitle"`
-	Image     string `json:"image"`
-	SpotifyLink string `json:"spotifyLink"`
-	UploadedImageLink string `json:"uploadedImageLink"`
+	ID                 int    `json:"id"`
+	UserID             int    `json:"user_id"`
+	Title              string `json:"title"`
+	Content            string `json:"content"`
+	CreatedAt          string `json:"created_at"`
+	Subtitle           string `json:"subtitle"`
+	Image              string `json:"image"`
+	SpotifyLink        string `json:"spotifyLink,omitempty"`
+	UploadedImageLink  string `json:"uploadedImageLink"`
 }
 
 type Comment struct {

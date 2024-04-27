@@ -2,6 +2,7 @@ package db
 
 import (
 	"blog/contracttesting/models"
+	"database/sql"
 	"log"
 )
 
@@ -53,10 +54,16 @@ func GetAllBlogPosts() ([]*models.BlogPost, error) {
 	blogsSlice := []*models.BlogPost{}
 	for rows.Next() {
 		blog := &models.BlogPost{}
-		err := rows.Scan(&blog.ID, &blog.UserID, &blog.Title, &blog.Content, &blog.CreatedAt, &blog.Subtitle, &blog.Image , &blog.SpotifyLink , &blog.UploadedImageLink)
+		var uploadedImageLink sql.NullString // Use sql.NullString to handle NULL values
+		err := rows.Scan(&blog.ID, &blog.UserID, &blog.Title, &blog.Content, &blog.CreatedAt, &blog.Subtitle, &blog.Image , &blog.SpotifyLink , &uploadedImageLink)
 		if err != nil {
 			log.Printf("Error scanning blog row: %v\n", err)
 			return nil, err
+		}
+		if uploadedImageLink.Valid { // Check if the value is not NULL
+			blog.UploadedImageLink = uploadedImageLink.String // Assign the value to the struct field
+		} else {
+			blog.UploadedImageLink = "" // If NULL, assign an empty string or handle it as needed
 		}
 		blogsSlice = append(blogsSlice, blog)
 	}
