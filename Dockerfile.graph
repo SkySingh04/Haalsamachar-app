@@ -1,0 +1,16 @@
+FROM golang:1.18-alpine AS build
+
+
+WORKDIR /app
+COPY . .
+
+RUN go mod tidy
+
+
+FROM alpine:latest
+
+WORKDIR  /app
+
+COPY --from=build /app/graph .
+
+CMD ["go", "run", "graph/server.go"]
