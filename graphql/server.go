@@ -1,6 +1,7 @@
 package main
 
 import (
+	"blog/contracttesting/db"
 	"blog/contracttesting/graphql/graph"
 	"log"
 	"net/http"
@@ -17,6 +18,12 @@ func main() {
 	if port == "" {
 		port = defaultPort
 	}
+	db.InitDB()
+	defer db.CloseDB()
+
+	db.CreateUsersTable()
+	db.CreateBlogPostsTable()
+	db.CreateCommentsTable()
 
 	srv := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: &graph.Resolver{}}))
 
