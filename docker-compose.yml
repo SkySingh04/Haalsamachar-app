@@ -27,20 +27,20 @@ services:
     env_file:
       - .env
 
-  auth:
+  graphql:
     build:
       context: .
-      dockerfile: Dockerfile.auth
+      dockerfile: Dockerfile.graphql
     ports:
-      - "8084:8084"
+      - "8080:8080"
     env_file:
       - .env
-      
-    # frontend:
-    #   build:
-    #     context: .
-    #     dockerfile: Dockerfile.frontend
-    #   ports:
-    #     - "3000:3000"
-    #   env_file:
-    #     - .env  
+  
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env  

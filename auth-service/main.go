@@ -2,16 +2,34 @@ package main
 
 import (
 	"blog/contracttesting/db"
+	"log"
+	"os"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
 func main() {
+	db.InitDB()
+	defer db.CloseDB()
+
+	db.CreateUsersTable()
+	db.CreateBlogPostsTable()
+	db.CreateCommentsTable()
 	r := gin.Default()
+	err := godotenv.Load()
+
+	if err != nil {
+		log.Println("Error loading .env file" + err.Error())
+	}
+
+	deploymentLink := os.Getenv("DEPLOYMENT_LINK")
+	deploymentLink2 := deploymentLink + "/"
+	
 	// Configure CORS middleware
 	config := cors.DefaultConfig()
-	config.AllowOrigins = []string{"https://haal-samachar.vercel.app/", "http://localhost:3000/", "https://haal-samachar.vercel.app", "http://localhost:3000"} // Add your frontend origin here
+	config.AllowOrigins = []string{deploymentLink2, "http://localhost:3000/", deploymentLink, "http://localhost:3000"} // Add your frontend origin here
 	config.AllowMethods = []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}
 	r.Use(cors.New(config))
 	db.InitDB()
