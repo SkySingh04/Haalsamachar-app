@@ -1,4 +1,4 @@
-name: Publish Docker image to dockerhub and github packages
+name: Publish Docker images to Docker Hub and GitHub Packages
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
 
 jobs:
   push_to_registries:
-    name: Push Docker image to multiple registries
+    name: Push Docker images to multiple registries
     runs-on: ubuntu-latest
     permissions:
       packages: write
@@ -29,28 +29,58 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
-        with:
-          images: |
-            akashsingh04/haal_samachar
-            ghcr.io/${{ github.repository }}
-
-      - name: Build and push Docker images
-        id: push
+      # Build and push Docker images for each Dockerfile
+      - name: Build and push Docker image for Dockerfile.auth
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
         with:
           context: .
+          dockerfile: Dockerfile.auth
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: mydockerhubusername/auth:${{ github.sha }}
 
-      
+      - name: Build and push Docker image for Dockerfile.blogs
+        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+        with:
+          context: .
+          dockerfile: Dockerfile.blogs
+          push: true
+          tags: mydockerhubusername/blogs:${{ github.sha }}
+
+      - name: Build and push Docker image for Dockerfile.comments
+        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+        with:
+          context: .
+          dockerfile: Dockerfile.comments
+          push: true
+          tags: mydockerhubusername/comments:${{ github.sha }}
+
+      - name: Build and push Docker image for Dockerfile.frontend
+        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+        with:
+          context: .
+          dockerfile: Dockerfile.frontend
+          push: true
+          tags: mydockerhubusername/frontend:${{ github.sha }}
+
+      - name: Build and push Docker image for Dockerfile.graph
+        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+        with:
+          context: .
+          dockerfile: Dockerfile.graph
+          push: true
+          tags: mydockerhubusername/graph:${{ github.sha }}
+
+      - name: Build and push Docker image for Dockerfile.users
+        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+        with:
+          context: .
+          dockerfile: Dockerfile.users
+          push: true
+          tags: mydockerhubusername/users:${{ github.sha }}
+
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v1
         with:
           subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
-      
