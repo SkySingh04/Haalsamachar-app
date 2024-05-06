@@ -1,14 +1,16 @@
-## HaalSamachar : A Blog Website built with GoLang+Gin in the backend and NextJs+TypeScript in the frontend with PostgreSQL powered database. 
+## HaalSamachar : A Blog Website built with GoLang with multiple services which include a graphQL API using gqlgen and three REST APIs built using Gin and NextJs+TypeScript in the frontend with PostgreSQL powered database, containerized using Docker and deployed using Kubernetes. 
 
-This GoLang application is designed to serve as a blog website that implements multiple services for separate containerization and scaling.
 
 ## Features
 
-- **Blog Website**: The application provides basic functionalities of a blog website, including creating, reading, updating, and deleting blog posts.
-- **Multiple Services**: The application is divided into multiple services, each responsible for specific functionalities such as user authentication, post management, and comment handling.
-- **Contract Testing**: Utilizes contract testing to verify the interactions and agreements between different services, ensuring that they work together seamlessly.
-- **Modular Design**: Built with a modular design approach, making it easy to add new services or modify existing ones without impacting the entire application.
+- graphQL server using gqlgen , rest server using gin mongo, docker, kubernetes ,  nextjs  ssr.
+- Write about CI/CD 
 
+Tech: GO : gin and gqlgen
+Docker and kubernetes
+Nextjs : Ts and tailwind
+Posgresql
+firebase auth
 
 ## Getting Started
 
@@ -29,7 +31,9 @@ To get started with this application, follow these steps:
 5. **Access the Application**: Once the services are running, access the blog website through your web browser at respective localhost ports [ 8081 , 8082 , 8083 , 8084 ].
 
 
-## API Documentation
+## API Documentation 
+
+refactor this t0o two files: graphQL api docs and rest api docs
 
 #### The API is deployed on 4 different services on Render (Thank the lord for their free tier)
 
