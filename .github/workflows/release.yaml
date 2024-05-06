@@ -12,7 +12,6 @@ jobs:
       id-token: write
       packages: write
       contents: read
-      attestations: write
     env:
         EDGE_STORE_ACCESS_KEY: ${{ secrets.EDGE_STORE_ACCESS_KEY }}
         EDGE_STORE_SECRET_KEY: ${{ secrets.EDGE_STORE_SECRET_KEY }}
