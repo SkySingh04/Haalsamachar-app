@@ -9,6 +9,7 @@ jobs:
     name: Push Docker images to multiple registries
     runs-on: ubuntu-latest
     permissions:
+      id-token: write
       packages: write
       contents: read
       attestations: write
