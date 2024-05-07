@@ -1,0 +1,3 @@
+frontend/app/components/** linguist-vendored
+frontend/app/createpost/** linguist-vendored
+frontend/app/blogs/** linguist-vendored
