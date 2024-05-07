@@ -32,43 +32,48 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # Build and push Docker images for each Dockerfile
-      - name: Build and push Docker image for Dockerfile.auth
-        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
-        with:
-          context: .
-          file: ./Dockerfile.auth
-          push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/haalsamachar-auth:${{ github.sha }}
+      # # Build and push Docker images for each Dockerfile
+      # - name: Build and push Docker image for Dockerfile.auth
+      #   uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+      #   with:
+      #     context: .
+      #     file: ./Dockerfile.auth
+      #     push: true
+      #     tags: ${{ secrets.DOCKER_USERNAME }}/haalsamachar-auth:${{ github.sha }}
 
-      - name: Build and push Docker image for Dockerfile.blogs
-        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
-        with:
-          context: .
-          file: ./Dockerfile.blogs
-          push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/haalsamachar-blogs:${{ github.sha }}
+      # - name: Build and push Docker image for Dockerfile.blogs
+      #   uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+      #   with:
+      #     context: .
+      #     file: ./Dockerfile.blogs
+      #     push: true
+      #     tags: ${{ secrets.DOCKER_USERNAME }}/haalsamachar-blogs:${{ github.sha }}
 
-      - name: Build and push Docker image for Dockerfile.comments
-        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
-        with:
-          context: .
-          file: ./Dockerfile.comments
-          push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/haalsamachar-comments:${{ github.sha }}
+      # - name: Build and push Docker image for Dockerfile.comments
+      #   uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+      #   with:
+      #     context: .
+      #     file: ./Dockerfile.comments
+      #     push: true
+      #     tags: ${{ secrets.DOCKER_USERNAME }}/haalsamachar-comments:${{ github.sha }}
 
-      - name: Build and push Docker image for Dockerfile.graph
-        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
-        with:
-          context: .
-          file: ./Dockerfile.graph
-          push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/haalsamachar-graph:${{ github.sha }}
+      # - name: Build and push Docker image for Dockerfile.graph
+      #   uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+      #   with:
+      #     context: .
+      #     file: ./Dockerfile.graph
+      #     push: true
+      #     tags: ${{ secrets.DOCKER_USERNAME }}/haalsamachar-graph:${{ github.sha }}
 
-      - name: Build and push Docker image for Dockerfile.users
-        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
-        with:
-          context: .
-          file: ./Dockerfile.users
-          push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/haalsamachar-users:${{ github.sha }}
+      # - name: Build and push Docker image for Dockerfile.users
+      #   uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+      #   with:
+      #     context: .
+      #     file: ./Dockerfile.users
+      #     push: true
+      #     tags: ${{ secrets.DOCKER_USERNAME }}/haalsamachar-users:${{ github.sha }}
+      
+      - name : Build and push Docker image for Dockerfile.frontend
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/haalsamachar-frontend:${{ github.sha }} -f ./Dockerfile.frontend . --build-arg EDGE_STORE_ACCESS_KEY=${{ secrets.EDGE_STORE_ACCESS_KEY}} --build-arg EDGE_STORE_SECRET_KEY=${{ secrets.EDGE_STORE_SECRET_KEY}}
+          docker push ${{ secrets.DOCKER_USERNAME }}/haalsamachar-frontend:${{ github.sha }}
