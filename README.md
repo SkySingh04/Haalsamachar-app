@@ -5,6 +5,7 @@
 
 - graphQL server using gqlgen , rest server using gin mongo, docker, kubernetes ,  nextjs  ssr.
 - Write about CI/CD 
+- add docs about how to start the kubernetes clustrer
 
 Tech: GO : gin and gqlgen
 Docker and kubernetes
