@@ -1,9 +1,11 @@
 # Use the official Node.js image as the base image
 FROM node:21-alpine
 
-ARG FOO=${FOO}
+ARG EDGE_STORE_ACCESS_KEY=${EDGE_STORE_ACCESS_KEY}
+ARG EDGE_STORE_SECRET_KEY=${EDGE_STORE_SECRET_KEY}
 
-ENV FOO=${FOO}
+ENV EDGE_STORE_ACCESS_KEY=${EDGE_STORE_ACCESS_KEY}
+ENV EDGE_STORE_SECRET_KEY=${EDGE_STORE_SECRET_KEY}
 
 # Set the working directory inside the container
 WORKDIR /app
