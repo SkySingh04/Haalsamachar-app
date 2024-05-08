@@ -90,7 +90,7 @@ const CreatePost = () =>  {
       };
       const likesDoc = await setDoc(doc(db, "likes", data.id.toString() ), likes);
       console.log("Likes document created successfully");
-      router.push(`/blogs/${data.id}`);
+      router.push(`/`);
     } catch (error) {
       console.error("Error creating likes document:", error);
       toast.error("Error creating likes document");
