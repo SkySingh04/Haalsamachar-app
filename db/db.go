@@ -20,7 +20,7 @@ func InitDB() *sql.DB {
 		log.Println("Error loading .env file" + err.Error())
 	}
 
-	//Note: Uncomment this to access personal database
+	//Note: Use this connectionstr to access personal database which is on aiven cloud
 	// host := os.Getenv("DB_HOST")
 	// port := os.Getenv("DB_PORT")
 	// user := os.Getenv("DB_USER")
@@ -28,7 +28,7 @@ func InitDB() *sql.DB {
 	// dbname := os.Getenv("DB_NAME")
 	// connStr := "host=" + host + " port=" + port + " user=" + user + " password=" + password + " dbname=" + dbname + " sslmode=require"
 
-	//Note: Uncomment this to access the production database
+	//Note: Use this connectionstr to access the production database which is on neontech cloud
 	connStr := os.Getenv("DATABASE_URL")
 
 	db, err = sql.Open("postgres", connStr)

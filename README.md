@@ -1,19 +1,43 @@
-## HaalSamachar : A Blog Website built with GoLang with multiple services which include a graphQL API using gqlgen and three REST APIs built using Gin and NextJs+TypeScript in the frontend with PostgreSQL powered database, containerized using Docker and deployed using Kubernetes. 
-
+## HaalSamachar : Backend Microservices built with GoLang including a GraphQL API built using gqlgen and four REST APIs built using Gin and frontend built with NextJs+TypeScript with PostgreSQL powered database, containerized using Docker and deployed using Kubernetes.
 
 ## Features
 
-- graphQL server using gqlgen , rest server using gin mongo, docker, kubernetes ,  nextjs  ssr.
-- Write about CI/CD 
-- add docs about how to start the kubernetes clustrer
+- **GraphQL API:** Utilizing gqlgen for creating a GraphQL server to efficiently query and manipulate data.
+- **REST APIs:** Three REST APIs are built using Gin for handling various functionalities.
+- **Docker & Kubernetes:** Containerized using Docker and deployed using Kubernetes for scalability and reliability.
+- **Next.js with SSR:** Frontend developed using Next.js for server-side rendering (SSR) along with TypeScript and Tailwind CSS.
+- **PostgreSQL:** Utilized as the database to store and manage data efficiently.
+- **Firebase Auth:** Integrated Firebase authentication for user authentication and authorization.
 
-Tech: GO : gin and gqlgen
-Docker and kubernetes
-Nextjs : Ts and tailwind
-Posgresql
-firebase auth
+## Continuous Integration/Continuous Deployment (CI/CD)
 
-## Getting Started
+CI/CD pipelines automate the process of testing and deploying code changes. HaalSamachar utilizes CI/CD practices to ensure smooth development and deployment workflows. Here's a brief overview:
+
+1. **Continuous Integration (CI):** Automated testing is performed upon each code commit to the repository. This ensures that any changes made do not introduce regressions or errors into the codebase.*(WIP)*
+
+2. **Continuous Deployment (CD):** Once the code changes pass the tests in the CI phase, they are automatically released to Docker hub and Github Packages. Check `/.github/workflows` for the github actions yaml files.
+
+## DEPLOYMENT LINKS:
+## Deployment Links
+
+### Render
+
+1. **GraphQL Server (Golang + gqlgen):** [https://graphql-pstx.onrender.com](https://graphql-pstx.onrender.com)
+
+2. **USERS REST API (Golang + Gin):** [https://haalsamachar-users.onrender.com](https://haalsamachar-users.onrender.com)
+
+3. **BLOGS REST API (Golang + Gin):** [https://haalsamachar-blogs.onrender.com](https://haalsamachar-blogs.onrender.com)
+
+4. **COMMENTS REST API (Golang + Gin):** [https://haalsamachar-comments.onrender.com](https://haalsamachar-comments.onrender.com)
+
+5. **AUTH REST API (Golang + Gin):** Not Deployed as we currently use firebase auth for secure authentication.
+
+6. **Frontend (Typescript + Next.js):** [https://haal-samachar.vercel.app/](https://haal-samachar.vercel.app/)
+
+7. **Database (PostgreSQL):** [Not applicable for direct access]
+
+
+## Getting Started Using Docker
 
 To get started with this application, follow these steps:
 
@@ -29,307 +53,37 @@ To get started with this application, follow these steps:
    ```
    This command will build and start all services defined in the `docker-compose.yml` file.
 
-5. **Access the Application**: Once the services are running, access the blog website through your web browser at respective localhost ports [ 8081 , 8082 , 8083 , 8084 ].
+5. **Access the Application**: Once the services are running, access the blog website through your web browser at respective localhost ports [ 8081 , 8082 , 8083 , 8084 , 3000 , 4000 ].
+
+Alternatively, you can build specific Docker images for various services using the command:
+
+```docker build -t haalsamachar-graphql ./Dockerfile.graph```
+```docker build -t haalsamachar-users ./Dockerfile.users```
+```docker build -t haalsamachar-blogs ./Dockerfile.blogs```
+```docker build -t haalsamachar-auth ./Dockerfile.auth```
+```docker build -t haalsamachar-comments ./Dockerfile.comments```
+```docker build -t haalsamachar-frontend ./Dockerfile.frontend```
+
+## Setting Up Kubernetes Cluster
+
+The kubernetes deployment configuration yaml files are located in `/deployment` directory. These can be modified to scale the number of pods and other configurations as per requirements.
+
+To deploy HaalSamachar using Kubernetes, follow these steps:
+
+1. **Install Kubernetes:** Set up a Kubernetes cluster on your preferred cloud provider or locally using Minikube.
+  
+2. **Apply Manifests:** Use `kubectl apply /deployments` command to apply the Kubernetes manifests and deploy the HaalSamachar application to the Kubernetes cluster.
+
+6. **Monitor and Scale:** Monitor the deployed application using Kubernetes monitoring tools and scale the application as needed to handle varying loads.
+
+For detailed instructions on setting up the Kubernetes cluster and deploying HaalSamachar, refer to the documentation provided by your Kubernetes provider or the Kubernetes official documentation.
 
 
 ## API Documentation 
 
-refactor this t0o two files: graphQL api docs and rest api docs
+- [REST API DOCUMENTATION](RESTAPI)
+- [GRAPHQL API DOCUMENTATION](GRAPHQL)
 
-#### The API is deployed on 4 different services on Render (Thank the lord for their free tier)
-
-### Auth Service API Documentation
-
-#### Login
-- **URL**: `/api/auth/login`
-- **Method**: `POST`
-- **Description**: User login endpoint.
-- **Request Body**:
-  ```json
-  {
-    "username": "string",
-    "password": "string"
-  }
-  ```
-- **Response**:
-  - **Status Code**: `200`
-    ```json
-    {
-      "token": "string"
-    }
-    ```
-  - **Status Code**: `400`
-    ```json
-    {
-      "error": "Invalid JSON payload"
-    }
-    ```
-  - **Status Code**: `401`
-    ```json
-    {
-      "error": "Invalid credentials"
-    }
-    ```
-
-#### Verify Token
-- **URL**: `/api/auth/verify`
-- **Method**: `GET`
-- **Description**: Endpoint to verify the authenticity of a token.
-- **Response**:
-  - **Status Code**: `200`
-    ```json
-    {
-      "message": "Token is valid"
-    }
-    ```
-
-#### Refresh Token
-- **URL**: `/api/auth/refresh`
-- **Method**: `POST`
-- **Description**: Refresh the authentication token.
-- **Response**:
-  - **Status Code**: `200`
-    ```json
-    {
-      "token": "new_dummy_token"
-    }
-    ```
-
-### Blog Service API Documentation
-
-#### Get Blog Post
-- **URL**: `/:id/blogs/:blogID`
-- **Method**: `GET`
-- **Description**: Get a specific blog post.
-- **Response**:
-  - **Status Code**: `200`
-    ```json
-    {
-      "id": 1,
-      "title": "string",
-      "content": "string",
-      "created_at": "string"
-    }
-    ```
-
-#### Delete Blog Post
-- **URL**: `/:id/blogs/:blogID`
-- **Method**: `DELETE`
-- **Description**: Delete a specific blog post.
-- **Response**:
-  - **Status Code**: `200`
-    ```json
-    {
-      "message": "Blog post deleted successfully"
-    }
-    ```
-
-#### Create Blog Post
-- **URL**: `/blogs`
-- **Method**: `POST`
-- **Description**: Create a new blog post.
-- **Request Body**:
-  ```json
-  {
-    "title": "string",
-    "content": "string"
-  }
-  ```
-- **Response**:
-  - **Status Code**: `200`
-    ```json
-    {
-      "id": 1,
-      "title": "string",
-      "content": "string",
-      "created_at": "string"
-    }
-    ```
-
-#### Update Blog Post
-- **URL**: `/blogs`
-- **Method**: `PUT`
-- **Description**: Update an existing blog post.
-- **Request Body**:
-  ```json
-  {
-    "id": 1,
-    "title": "string",
-    "content": "string"
-  }
-  ```
-- **Response**:
-  - **Status Code**: `200`
-    ```json
-    {
-      "id": 1,
-      "title": "string",
-      "content": "string",
-      "created_at": "string"
-    }
-    ```
-
-### Comment Service API Documentation
-
-#### Add Comment
-- **URL**: `/comments`
-- **Method**: `POST`
-- **Description**: Add a new comment to a blog post.
-- **Request Body**:
-  ```json
-  {
-    "userID": 1,
-    "blogID": 1,
-    "content": "string"
-  }
-  ```
-- **Response**:
-  - **Status Code**: `200`
-    ```json
-    {
-      "id": 1,
-      "userID": 1,
-      "blogID": 1,
-      "content": "string",
-      "created_at": "string"
-    }
-    ```
-
-#### Get Comments
-- **URL**: `/blogs/:blogID/comments`
-- **Method**: `GET`
-- **Description**: Get all comments for a specific blog post.
-- **Response**:
-  - **Status Code**: `200`
-    ```json
-    [
-      {
-        "id": 1,
-        "userID": 1,
-        "blogID": 1,
-        "content": "string",
-        "created_at": "string"
-      }
-    ]
-    ```
-
-#### Update Comment
-- **URL**: `/comments`
-- **Method**: `PUT`
-- **Description**: Update an existing comment.
-- **Request Body**:
-  ```json
-  {
-    "id": 1,
-    "userID": 1,
-    "content": "string"
-  }
-  ```
-- **Response**:
-  - **Status Code**: `200`
-    ```json
-    {
-      "id": 1,
-      "userID": 1,
-      "blogID": 1,
-      "content": "string",
-      "created_at": "string"
-    }
-    ```
-
-#### Delete Comment
-- **URL**: `/comments/:commentID`
-- **Method**: `DELETE`
-- **Description**: Delete a specific comment.
-- **Response**:
-  - **Status Code**: `200`
-    ```json
-    {
-      "message": "Comment deleted successfully"
-    }
-    ```
-
-### User Service API Documentation
-
-#### Get User by ID
-- **URL**: `/users/:id`
-- **Method**: `GET`
-- **Description**: Get user details by ID.
-- **Response**:
-  - **Status Code**: `200`
-    ```json
-    {
-      "id": 1,
-      "username": "string",
-      "email": "string"
-    }
-    ```
-
-#### Get User's Blog Posts
-- **URL**: `/users/:id/blogs`
-- **Method**: `GET`
-- **Description**: Get all blog posts of a user.
-- **Response**:
-  - **Status Code**: `200`
-    ```json
-    [
-      {
-        "id": 1,
-        "title": "string",
-        "content": "string",
-        "created_at": "string"
-      }
-    ]
-    ```
-
-#### Get User's Comments
-- **URL**: `/users/:id/comments`
-- **Method**: `GET`
-- **Description**: Get all comments of a user.
-- **Response**:
-  - **Status Code**: `200`
-    ```json
-    [
-      {
-        "id": 1,
-        "userID": 1,
-        "blogID": 1,
-        "content": "string",
-        "created_at": "string"
-      }
-    ]
-    ```
-
-#### Signup
-- **URL**: `/users`
-- **Method**: `POST`
-- **Description**: User signup endpoint.
-- **Request Body**:
-  ```json
-  {
-    "username": "string",
-    "password": "string"
-  }
-  ```
-- **Response**:
-  - **Status Code**: `200`
-    ```json
-    {
-      "message": "User signed up successfully"
-    }
-    ```
-  - **Status Code**: `400`
-    ```json
-    {
-      "error": "Invalid request"
-    }
-    ```
-  - **Status Code**: `409`
-    ```json
-    {
-     "error": "Username already exists"
-    }
-    ```
 
 
 ## Contributing

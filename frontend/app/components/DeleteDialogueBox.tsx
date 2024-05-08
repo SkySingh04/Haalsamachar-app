@@ -61,7 +61,7 @@ const DeleteDialogueBox: React.FC<DeleteDialogueBoxProps> = ({
 
     useEffect(() => {
         const checkIfUserCanDelete = async () => {
-            if (userId === "525993") {
+            if (userId === "468690") {
                 setCanDelete(true);
                 console.log("Admin user")
                 return;
