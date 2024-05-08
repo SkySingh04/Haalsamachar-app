@@ -18,9 +18,6 @@ CI/CD pipelines automate the process of testing and deploying code changes. Haal
 2. **Continuous Deployment (CD):** Once the code changes pass the tests in the CI phase, they are automatically released to Docker hub and Github Packages. Check `/.github/workflows` for the github actions yaml files.
 
 ## DEPLOYMENT LINKS:
-## Deployment Links
-
-### Render
 
 1. **GraphQL Server (Golang + gqlgen):** [https://graphql-pstx.onrender.com](https://graphql-pstx.onrender.com)
 
@@ -57,12 +54,24 @@ To get started with this application, follow these steps:
 
 Alternatively, you can build specific Docker images for various services using the command:
 
-```docker build -t haalsamachar-graphql ./Dockerfile.graph```
-```docker build -t haalsamachar-users ./Dockerfile.users```
-```docker build -t haalsamachar-blogs ./Dockerfile.blogs```
-```docker build -t haalsamachar-auth ./Dockerfile.auth```
-```docker build -t haalsamachar-comments ./Dockerfile.comments```
-```docker build -t haalsamachar-frontend ./Dockerfile.frontend```
+```bash
+docker build -t haalsamachar-graphql ./Dockerfile.graph
+```
+```bash
+docker build -t haalsamachar-users ./Dockerfile.users
+```
+```bash
+docker build -t haalsamachar-blogs ./Dockerfile.blogs
+```
+```bash
+docker build -t haalsamachar-auth ./Dockerfile.auth
+```
+```bash
+docker build -t haalsamachar-comments ./Dockerfile.comments
+```
+```bash
+docker build -t haalsamachar-frontend ./Dockerfile.frontend
+```
 
 ## Setting Up Kubernetes Cluster
 
@@ -83,7 +92,6 @@ For detailed instructions on setting up the Kubernetes cluster and deploying Haa
 
 - [REST API DOCUMENTATION](RESTAPI)
 - [GRAPHQL API DOCUMENTATION](GRAPHQL)
-
 
 
 ## Contributing
