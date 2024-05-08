@@ -4,7 +4,6 @@ package db
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 	"os"
 
@@ -20,13 +19,17 @@ func InitDB() *sql.DB {
 	if err != nil {
 		log.Println("Error loading .env file" + err.Error())
 	}
-	fmt.Println("DB_HOST: ", os.Getenv("DB_HOST"))
-	host := os.Getenv("DB_HOST")
-	port := os.Getenv("DB_PORT")
-	user := os.Getenv("DB_USER")
-	password := os.Getenv("DB_PASSWORD")
-	dbname := os.Getenv("DB_NAME")
-	connStr := "host=" + host + " port=" + port + " user=" + user + " password=" + password + " dbname=" + dbname + " sslmode=require"
+
+	//Note: Uncomment this to access personal database
+	// host := os.Getenv("DB_HOST")
+	// port := os.Getenv("DB_PORT")
+	// user := os.Getenv("DB_USER")
+	// password := os.Getenv("DB_PASSWORD")
+	// dbname := os.Getenv("DB_NAME")
+	// connStr := "host=" + host + " port=" + port + " user=" + user + " password=" + password + " dbname=" + dbname + " sslmode=require"
+
+	//Note: Uncomment this to access the production database
+	connStr := os.Getenv("DATABASE_URL")
 
 	db, err = sql.Open("postgres", connStr)
 	if err != nil {
