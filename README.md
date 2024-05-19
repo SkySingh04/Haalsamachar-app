@@ -1,5 +1,7 @@
 ## HaalSamachar Application Repository : Consists of Backend Microservices built with GoLang including a GraphQL API built using gqlgen and four REST APIs built using Gin and frontend built with NextJs+TypeScript with PostgreSQL powered database, containerized using Docker using Dockerfiles and CI/CD pipeline configurations.
 
+## [HaalSamachar Infrastructure Repository](https://github.com/Akash-Singh04/haalsamachar-infra) : Contains Terraform scripts, Kubernetes manifests, and GitOps configurations for Haalsamachar App.
+
 ## Features
 
 - **GraphQL API:** Utilizing gqlgen for creating a GraphQL server to efficiently query and manipulate data.
