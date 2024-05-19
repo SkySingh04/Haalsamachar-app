@@ -1,10 +1,12 @@
-## HaalSamachar : Backend Microservices built with GoLang including a GraphQL API built using gqlgen and four REST APIs built using Gin and frontend built with NextJs+TypeScript with PostgreSQL powered database, containerized using Docker and deployed using Kubernetes.
+## HaalSamachar Application Repository : Consists of Backend Microservices built with GoLang including a GraphQL API built using gqlgen and four REST APIs built using Gin and frontend built with NextJs+TypeScript with PostgreSQL powered database, containerized using Docker using Dockerfiles and CI/CD pipeline configurations.
+
+## [HaalSamachar Infrastructure Repository](https://github.com/Akash-Singh04/haalsamachar-infra) : Contains Terraform scripts, Kubernetes manifests, and GitOps configurations for Haalsamachar App.
 
 ## Features
 
 - **GraphQL API:** Utilizing gqlgen for creating a GraphQL server to efficiently query and manipulate data.
 - **REST APIs:** Three REST APIs are built using Gin for handling various functionalities.
-- **Docker & Kubernetes:** Containerized using Docker and deployed using Kubernetes for scalability and reliability.
+- **Docker & Kubernetes:** Containerized using Docker.
 - **Next.js with SSR:** Frontend developed using Next.js for server-side rendering (SSR) along with TypeScript and Tailwind CSS.
 - **PostgreSQL:** Utilized as the database to store and manage data efficiently.
 - **Firebase Auth:** Integrated Firebase authentication for user authentication and authorization.
@@ -72,21 +74,6 @@ docker build -t haalsamachar-comments ./Dockerfile.comments
 ```bash
 docker build -t haalsamachar-frontend ./Dockerfile.frontend
 ```
-
-## Setting Up Kubernetes Cluster
-
-The kubernetes deployment configuration yaml files are located in `/deployment` directory. These can be modified to scale the number of pods and other configurations as per requirements.
-
-To deploy HaalSamachar using Kubernetes, follow these steps:
-
-1. **Install Kubernetes:** Set up a Kubernetes cluster on your preferred cloud provider or locally using Minikube.
-  
-2. **Apply Manifests:** Use `kubectl apply /deployments` command to apply the Kubernetes manifests and deploy the HaalSamachar application to the Kubernetes cluster.
-
-6. **Monitor and Scale:** Monitor the deployed application using Kubernetes monitoring tools and scale the application as needed to handle varying loads.
-
-For detailed instructions on setting up the Kubernetes cluster and deploying HaalSamachar, refer to the documentation provided by your Kubernetes provider or the Kubernetes official documentation.
-
 
 ## API Documentation 
 
