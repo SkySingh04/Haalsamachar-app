@@ -67,3 +67,40 @@ func CreateCommentsTable() {
 
 	log.Println("comments table created successfully")
 }
+
+func CreateCategoriesTable() {
+	// SQL statement to create the categories table
+	const createTableQuery = `
+	CREATE TABLE IF NOT EXISTS categories (
+		id SERIAL PRIMARY KEY,
+		name VARCHAR(255) NOT NULL
+	);
+	`
+
+	// Execute the SQL statement to create the table
+	_, err := db.Exec(createTableQuery)
+	if err != nil {
+		log.Fatalf("Error creating categories table: %v", err)
+	}
+
+	log.Println("categories table created successfully")
+}
+
+func CreateCategoryAssignmentsTable() {
+	// SQL statement to create the category_assignments table (weak entity)
+	const createTableQuery = `
+	CREATE TABLE IF NOT EXISTS category_assignments (
+		id SERIAL PRIMARY KEY,
+		category_id INTEGER NOT NULL REFERENCES categories(id) ON DELETE CASCADE,
+		blog_id INTEGER NOT NULL REFERENCES blog_posts(id) ON DELETE CASCADE
+	);
+	`
+
+	// Execute the SQL statement to create the table
+	_, err := db.Exec(createTableQuery)
+	if err != nil {
+		log.Fatalf("Error creating category_assignments table: %v", err)
+	}
+
+	log.Println("category_assignments table created successfully")
+}

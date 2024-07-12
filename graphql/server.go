@@ -24,6 +24,8 @@ func main() {
 	db.CreateUsersTable()
 	db.CreateBlogPostsTable()
 	db.CreateCommentsTable()
+	db.CreateCategoriesTable()
+	db.CreateCategoryAssignmentsTable()
 
 	srv := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: &graph.Resolver{}}))
 

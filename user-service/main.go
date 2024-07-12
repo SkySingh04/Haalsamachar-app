@@ -20,6 +20,8 @@ func main() {
 	db.CreateUsersTable()
 	db.CreateBlogPostsTable()
 	db.CreateCommentsTable()
+	db.CreateCategoriesTable()
+	db.CreateCategoryAssignmentsTable()
 	// Create a new Gin router
 	r := gin.Default()
 	

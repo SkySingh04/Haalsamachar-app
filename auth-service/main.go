@@ -17,6 +17,8 @@ func main() {
 	db.CreateUsersTable()
 	db.CreateBlogPostsTable()
 	db.CreateCommentsTable()
+	db.CreateCategoriesTable()
+	db.CreateCategoryAssignmentsTable()
 	r := gin.Default()
 	err := godotenv.Load()
 

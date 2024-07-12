@@ -23,6 +23,8 @@ func main() {
 	defer db.CloseDB()
 
 	db.CreateCommentsTable()
+	db.CreateCategoriesTable()
+	db.CreateCategoryAssignmentsTable()
 	db.CreateBlogPostsTable()
 	db.CreateUsersTable()
 	r := gin.Default()
