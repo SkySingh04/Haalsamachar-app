@@ -7,6 +7,17 @@ type User struct {
 	Password string
 }
 
+type Category struct {
+	ID   int    `json:"id"`
+	Name string `json:"name"`
+}
+
+type CategoryAssignment struct {
+	ID         int `json:"id"`
+	CategoryID int `json:"category_id"`
+	BlogID     int `json:"blog_id"`
+}
+
 type BlogPost struct {
 	ID                 int    `json:"id"`
 	UserID             int    `json:"user_id"`

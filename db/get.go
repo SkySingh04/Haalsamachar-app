@@ -189,3 +189,52 @@ func GetCommentForCommentID(commentID string) (*models.Comment, error) {
 	}
 	return comment, nil
 }
+
+func GetAllCategories() ([]*models.Category, error) {
+	query := "SELECT id, name FROM categories"
+	rows, err := db.Query(query)
+	if err != nil {
+		log.Printf("Error executing query: %v\n", err)
+		return nil, err
+	}
+	defer rows.Close()
+
+	categories := []*models.Category{}
+	for rows.Next() {
+		category := &models.Category{}
+		err := rows.Scan(&category.ID, &category.Name)
+		if err != nil {
+			log.Printf("Error scanning category row: %v\n", err)
+			return nil, err
+		}
+		categories = append(categories, category)
+	}
+	return categories, nil
+}
+
+func GetCategoriesByBlogID(blogID int) ([]*models.Category, error) {
+	query := `
+		SELECT c.id, c.name 
+		FROM categories c
+		JOIN category_assignments ca ON c.id = ca.category_id
+		WHERE ca.blog_id = $1
+	`
+	rows, err := db.Query(query, blogID)
+	if err != nil {
+		log.Printf("Error executing query: %v\n", err)
+		return nil, err
+	}
+	defer rows.Close()
+
+	categories := []*models.Category{}
+	for rows.Next() {
+		category := &models.Category{}
+		err := rows.Scan(&category.ID, &category.Name)
+		if err != nil {
+			log.Printf("Error scanning category row: %v\n", err)
+			return nil, err
+		}
+		categories = append(categories, category)
+	}
+	return categories, nil
+}

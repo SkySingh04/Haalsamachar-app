@@ -37,6 +37,8 @@ func main() {
 	// Define routes
 	r.GET("/", healthCheckHandler)
 	r.GET("/blogs/:blogID", getblogHandler)
+	r.GET("/categories", getAllCategoriesHandler)
+	r.GET("/blogs/:blogID/categories", getCategoriesByBlogIDHandler)
 	r.DELETE("/blogs/:blogID", deleteblogHandler)
 	r.POST("/blogs", createblogHandler)
 	r.PUT("/blogs", updateblogHandler)

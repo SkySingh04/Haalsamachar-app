@@ -4,6 +4,7 @@ import (
 	"blog/contracttesting/db"
 	"blog/contracttesting/models"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -77,4 +78,32 @@ func deleteblogHandler(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"message": "Blog deleted successfully"})
+}
+
+func getAllCategoriesHandler(c *gin.Context) {
+	// Implement logic to fetch all categories
+	categories, err := db.GetAllCategories()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to retrieve categories"})
+		return
+	}
+
+	c.JSON(http.StatusOK, categories)
+}
+
+func getCategoriesByBlogIDHandler(c *gin.Context) {
+	// Implement logic to fetch categories by blog ID
+	blogID := c.Param("blogID")
+	intBlogID, err := strconv.Atoi(blogID)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid blog ID"})
+		return
+	}
+	categories, err := db.GetCategoriesByBlogID(intBlogID)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to retrieve categories for blog"})
+		return
+	}
+
+	c.JSON(http.StatusOK, categories)
 }
